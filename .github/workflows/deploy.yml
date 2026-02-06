@@ -26,19 +26,19 @@ jobs:
       - name: Checkout rfs
         uses: actions/checkout@v4
         with:
-          repository: geoglows/rfs
+          repository: geoglows/rfs-v2-hydroviewer
           path: rfs
 
       - name: Checkout ggst
         uses: actions/checkout@v4
         with:
-          repository: geoglows/ggst
+          repository: geoglows/grace-groundwater-dashboard
           path: ggst
 
       - name: Checkout gwdm
         uses: actions/checkout@v4
         with:
-          repository: geoglows/gwdm
+          repository: njones61/aquiferx
           path: gwdm
 
       - name: Setup Node.js
