@@ -1,0 +1,95 @@
+name: Build & Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout index
+        uses: actions/checkout@v4
+        with:
+          path: index
+
+      - name: Checkout rfs
+        uses: actions/checkout@v4
+        with:
+          repository: geoglows/rfs
+          path: rfs
+
+      - name: Checkout ggst
+        uses: actions/checkout@v4
+        with:
+          repository: geoglows/ggst
+          path: ggst
+
+      - name: Checkout gwdm
+        uses: actions/checkout@v4
+        with:
+          repository: geoglows/gwdm
+          path: gwdm
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build index
+        working-directory: index
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build rfs
+        working-directory: rfs
+        run: |
+          npm ci
+          npx vite build --base=/rfs/
+
+      - name: Build ggst
+        working-directory: ggst
+        run: |
+          npm ci
+          npx vite build --base=/ggst/
+
+      - name: Build gwdm
+        working-directory: gwdm
+        run: |
+          npm ci
+          npx vite build --base=/gwdm/
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site/rfs _site/ggst _site/gwdm
+          cp -r index/dist/* _site/
+          cp -r rfs/dist/* _site/rfs/
+          cp -r ggst/dist/* _site/ggst/
+          cp -r gwdm/dist/* _site/gwdm/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
