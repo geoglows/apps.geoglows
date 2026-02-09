@@ -23,24 +23,19 @@ jobs:
         with:
           path: index
 
-      - name: Checkout rfs
-        uses: actions/checkout@v4
-        with:
-          repository: geoglows/rfs-v2-hydroviewer
-          ref: convert-to-vite
-          path: rfs
-
-      - name: Checkout ggst
-        uses: actions/checkout@v4
-        with:
-          repository: geoglows/grace-groundwater-dashboard
-          path: ggst
-
-      - name: Checkout gwdm
-        uses: actions/checkout@v4
-        with:
-          repository: njones61/aquiferx
-          path: gwdm
+      - name: Checkout apps
+        run: |
+          for app in $(jq -c '.apps[]' index/apps.json); do
+            id=$(echo "$app" | jq -r '.id')
+            repo=$(echo "$app" | jq -r '.repository')
+            ref=$(echo "$app" | jq -r '.ref // empty')
+            echo "Cloning $repo into $id"
+            if [ -n "$ref" ]; then
+              git clone --depth 1 --branch "$ref" "https://github.com/$repo.git" "$id"
+            else
+              git clone --depth 1 "https://github.com/$repo.git" "$id"
+            fi
+          done
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -53,31 +48,28 @@ jobs:
           npm ci
           npm run build
 
-      - name: Build rfs
-        working-directory: rfs
+      - name: Build apps
         run: |
-          npm install
-          npx vite build --base=/rfs/
-
-      - name: Build ggst
-        working-directory: ggst
-        run: |
-          npm install
-          npx vite build --base=/ggst/
-
-      - name: Build gwdm
-        working-directory: gwdm
-        run: |
-          npm install
-          npx vite build --base=/gwdm/
+          for app in $(jq -c '.apps[]' index/apps.json); do
+            id=$(echo "$app" | jq -r '.id')
+            path=$(echo "$app" | jq -r '.path')
+            echo "Building $id with base=$path/"
+            cd "$id"
+            npm install
+            npx vite build --base="$path/"
+            cd ..
+          done
 
       - name: Assemble site
         run: |
-          mkdir -p _site/rfs _site/ggst _site/gwdm
+          mkdir -p _site
           cp -r index/dist/* _site/
-          cp -r rfs/dist/* _site/rfs/
-          cp -r ggst/dist/* _site/ggst/
-          cp -r gwdm/dist/* _site/gwdm/
+          for app in $(jq -c '.apps[]' index/apps.json); do
+            id=$(echo "$app" | jq -r '.id')
+            path=$(echo "$app" | jq -r '.path' | sed 's|^/||')
+            mkdir -p "_site/$path"
+            cp -r "$id/dist/"* "_site/$path/"
+          done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

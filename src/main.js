@@ -1,5 +1,7 @@
 import './style.css';
-import { TOOLS, CONTRIBUTORS, SPONSORS } from './constants.js';
+import config from '../apps.json';
+
+const { apps: TOOLS, contributors: CONTRIBUTORS, sponsors: SPONSORS } = config;
 
 const ICONS = {
   droplet: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-blue-500 animate-pulse"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>`,
