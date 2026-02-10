@@ -25,7 +25,7 @@ jobs:
 
       - name: Checkout apps
         run: |
-          for app in $(jq -c '.apps[]' index/apps.json); do
+          jq -c '.apps[]' index/apps.json | while IFS= read -r app; do
             id=$(echo "$app" | jq -r '.id')
             repo=$(echo "$app" | jq -r '.repository')
             ref=$(echo "$app" | jq -r '.ref // empty')
@@ -50,7 +50,7 @@ jobs:
 
       - name: Build apps
         run: |
-          for app in $(jq -c '.apps[]' index/apps.json); do
+          jq -c '.apps[]' index/apps.json | while IFS= read -r app; do
             id=$(echo "$app" | jq -r '.id')
             path=$(echo "$app" | jq -r '.path')
             echo "Building $id with base=$path/"
@@ -64,7 +64,7 @@ jobs:
         run: |
           mkdir -p _site
           cp -r index/dist/* _site/
-          for app in $(jq -c '.apps[]' index/apps.json); do
+          jq -c '.apps[]' index/apps.json | while IFS= read -r app; do
             id=$(echo "$app" | jq -r '.id')
             path=$(echo "$app" | jq -r '.path' | sed 's|^/||')
             mkdir -p "_site/$path"
