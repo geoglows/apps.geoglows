@@ -2,14 +2,33 @@ import './style.css';
 import config from '../apps.json';
 
 const { apps: TOOLS, contributors: CONTRIBUTORS, sponsors: SPONSORS } = config;
+const ICON_MODULES = import.meta.glob('./icons/*.svg', {
+  eager: true,
+  import: 'default',
+  query: '?raw'
+});
+const APP_ICONS = Object.fromEntries(
+  Object.entries(ICON_MODULES).map(([path, svg]) => [path.split('/').pop().replace('.svg', ''), svg])
+);
 
 const ICONS = {
   droplet: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-blue-500 animate-pulse"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>`,
-  dropletSmall: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-blue-500"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>`,
   sun: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`,
   moon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`,
   arrowUpRight: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-blue-500"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>`
 };
+
+function getAppIcon(iconName) {
+  const iconSvg = APP_ICONS[iconName];
+  if (iconSvg) return iconSvg;
+
+  const message = `Missing app icon "${iconName}". Expected file: src/icons/${iconName}.svg`;
+  if (import.meta.env.DEV) {
+    throw new Error(message);
+  }
+  console.warn(message);
+  return '';
+}
 
 function initTheme() {
   const stored = localStorage.getItem('theme');
@@ -33,13 +52,15 @@ function updateThemeIcon() {
 }
 
 function createToolCard(tool) {
+  const iconSvg = getAppIcon(tool.iconName);
+
   return `
     <a href="${tool.path}" class="glass-card p-8 rounded-2xl flex flex-col h-full group relative overflow-hidden">
       <div class="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
         ${ICONS.arrowUpRight}
       </div>
       <div class="mb-6 p-3 bg-blue-100 dark:bg-blue-500/10 rounded-xl w-fit group-hover:bg-blue-200 dark:group-hover:bg-blue-500/20 transition-colors ${tool.iconClass}">
-        ${tool.iconSvg}
+        ${iconSvg}
       </div>
       <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
         ${tool.name}
@@ -58,24 +79,7 @@ function createToolCard(tool) {
   `;
 }
 
-function createFeatureItem(text) {
-  return `
-    <div class="flex items-center gap-4 group">
-      <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center group-hover:bg-blue-200 dark:group-hover:bg-blue-500/20 transition-colors">
-        ${ICONS.dropletSmall}
-      </div>
-      <span class="text-slate-700 dark:text-slate-300 font-medium">${text}</span>
-    </div>
-  `;
-}
-
 function render() {
-  const features = [
-    "High-resolution streamflow forecasting",
-    "Regional groundwater storage monitoring",
-    "Consolidated global observation datasets"
-  ];
-
   document.querySelector('#app').innerHTML = `
     <div class="min-h-screen text-slate-800 dark:text-slate-200 water-mesh flex flex-col">
       <!-- Navigation Header -->
