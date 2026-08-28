@@ -10,17 +10,18 @@
 ## Architecture
 - **State machine**: `src/main.js` owns a single `appState` object; `setState(patch)` re-renders the whole tree by re-assigning `#app.innerHTML`. No virtual DOM, no reconciliation — every re-render rebuilds. Event handlers re-bind on every render via `bindWorkspaceEvents`
 - **Hash routing**: `pageFromHash()` maps `#home` → landing page, `#library` → apps grid, `#profile` / `#workspace` (legacy) → profile page. Default (no hash) → apps grid for authenticated users, landing for anonymous
-- **Two render modes**: anonymous visitors see the scroll-driven landing page with anime.js animations; authenticated users see a compact header with Library/Profile nav and the apps grid with a "Recent Apps" section
+- **Two render modes**: anonymous visitors get the landing page (hero + Explore grid + manifesto); authenticated users get the apps grid with a "Recent Apps" section. The nav is one height either way, as on geoglows.org — there is no compact/tall header split, and no theme toggle
 - **Session bootstrap**: `bootstrapSession` from `@aquaveo/geoglows-auth/core` is called from a `supabase.auth.onAuthStateChange("INITIAL_SESSION", ...)` listener — only after Supabase JS has finished `detectSessionInUrl`. A 2s safety-net timeout backstops the listener
 - **Profile data flow**: Supabase Auth issues a session → `bootstrapSession` calls `ensureProfile` (lib) → `profiles` row exists → `loadAccountSummary` returns `{ profile }`. Edits go through `updateProfile` (lib) which updates the `profiles` table directly; `display_name` is recomposed from name parts on update
 - **HTML escape discipline**: every `${value}` interpolation that could carry user input MUST go through `escapeHtml()` imported from `@aquaveo/geoglows-auth/core`. The portal renders by template-string-then-innerHTML, so every interpolation is an HTML injection point. See `docs/solutions/security-issues/html-escape-discipline-vanilla-js-templates-2026-04-29.md`
-- **anime.js re-initialization pattern**: since `innerHTML` replacement destroys all DOM nodes, scroll animations are re-initialized after every render via `initScrollAnimations()` which calls `activeScope.revert()` before creating new animations. Elements use the `anim-ready` CSS class (added by JS) for initial `opacity: 0` — content stays visible if JS fails
+- **Scroll reveal**: `src/reveal.js` is a port of geoglows.org's `reveal.ts` — an IntersectionObserver adds `.is-visible` to each `.reveal` once, then unobserves. Because `innerHTML` replacement destroys all DOM nodes, `initReveal()` runs again from `renderApp()` and disconnects the prior observer first. Reveal targets are visible by default; `.reveal-ready` on `<html>` is what opts them into the transition, so a JS failure leaves a fully rendered page. anime.js is gone
 
 ## Key Files
 - `src/main.js` — app entry, `appState`, `render(state)`, hash routing (`#home` / `#library` / `#profile`), compact vs full header logic, Supabase auth-state listener, sign-out → `#home` redirect, OAuth callback URL cleanup
-- `src/ui/landingPage.js` — scroll-driven landing page (`renderLandingPage`), compact app grid (`renderAppsGrid`), "Recent Apps" section, app showcases with anime.js scroll animations (`initScrollAnimations`), app card component with `data-app-id` for click tracking
+- `src/ui/landingPage.js` — landing page (`renderLandingPage`), app grid (`renderAppsGrid`), "Recent Apps" section, app card component with `data-app-id` for click tracking
 - `src/ui/profilePage.js` — view + edit modes, persistent completion banner (stays until profile is complete, no dismiss), save success banner with auto-dismiss
-- `src/ui/footer.js` — theme-aware GEOGLOWS logo, external links, copyright
+- `src/ui/footer.js` — the always-dark navy footer ported from geoglows.org's `SiteFooter.astro`: brand column plus Tools / Explore / Community link columns, copyright and legal row
+- `src/reveal.js` — IntersectionObserver scroll reveal, ported from geoglows.org's `reveal.ts`
 - `src/recentApps.js` — localStorage-based recent app tracking (`recordAppVisit`, `getRecentApps`), max 5 entries
 - `src/auth.js` — re-exports from the lib's Supabase Auth adapter; dispatches the `geoglows:sign-in-requested` window event the modal listens for
 - `src/supabase.js` — single Supabase client constructed at module load from `import.meta.env.VITE_SUPABASE_URL` + `VITE_SUPABASE_PUBLISHABLE_KEY`
@@ -38,6 +39,8 @@ The vanilla sign-in modal, navbar auth-action slot, and `escapeHtml` helper live
 - Tailwind utility classes inline; no `@apply` in app-owned `src/`. Component classes live in `src/style.css` only for cross-cutting treatments (`tool-card`, `water-mesh`); prefer `@utility` for anything button-like
 - **Name semantic tokens, never palette scales.** `bg-page` / `text-ink` / `border-line`, not `bg-white` / `text-slate-800` / `border-slate-200`. Dark mode comes from the token layer, so a `dark:` colour variant is almost always a mistake. See `.agents/context/DESIGN.md`
 - Headings are Raleway 800 via a base rule; never add `font-normal` to one
+- Use the `shell` and `block-y` utilities for section width and vertical rhythm; never hand-roll `max-w-*` + `px-*` + `py-*` on a section
+- **No `dark:` variants.** Every colour, error states included, comes from a token that flips via `prefers-color-scheme`. There is no theme toggle and nothing stamps `data-theme`
 - Native `<dialog>` for modals. Use `margin: auto` for centering (not `position: fixed` + `transform: translate(-50%)` — WebKit computes 0 height with that approach). Give dialogs explicit height via inline style for Safari compatibility
 - Hash links use root-relative paths (`/#home`, `/#library`, `/#profile`) to avoid sub-app path concatenation issues
 - Profile-of-record is the `profiles` table. `user_metadata` from Supabase Auth is sign-up-time identity ONLY — never re-flow it into `profiles` on subsequent sign-ins. See `geoglows-auth/docs/solutions/best-practices/user-metadata-is-auth-identity-not-profile-of-record-2026-04-29.md`

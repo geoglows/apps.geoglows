@@ -1,6 +1,5 @@
 import { signInRedirect, signOutRedirect } from "./auth.js";
 import { loadAccountSummary, updateProfile } from "./account.js";
-import { toggleTheme } from "./theme.js";
 import { recordAppVisit } from "./recentApps.js";
 
 export function bindWorkspaceEvents(setState) {
@@ -95,7 +94,15 @@ export function bindWorkspaceEvents(setState) {
       }
     });
 
-  document.getElementById("theme-toggle")?.addEventListener("click", toggleTheme);
+  // Mobile nav, matching SiteNav.astro's data-open toggle.
+  const nav = document.querySelector(".site-nav");
+  const navToggle = nav?.querySelector(".nav-toggle");
+  navToggle?.addEventListener("click", () => {
+    const open = nav.getAttribute("data-open") === "true";
+    nav.setAttribute("data-open", String(!open));
+    navToggle.setAttribute("aria-expanded", String(!open));
+    navToggle.setAttribute("aria-label", open ? "Open menu" : "Close menu");
+  });
 
   for (const card of document.querySelectorAll("[data-app-id]")) {
     card.addEventListener("click", () => {

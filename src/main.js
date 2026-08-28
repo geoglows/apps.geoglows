@@ -10,8 +10,8 @@ import { injectSpeedInsights } from "@vercel/speed-insights";
 
 import { auth, SIGN_IN_REQUESTED_EVENT } from "./auth.js";
 import { supabase } from "./supabase.js";
-import { initTheme, updateThemeIcon } from "./theme.js";
 import { bindWorkspaceEvents } from "./events.js";
+import { initReveal } from "./reveal.js";
 import {
   detectRecoveryUrlState,
   getInitialState,
@@ -24,7 +24,7 @@ import {
   mountDisclaimerModal,
 } from "./disclaimer.js";
 import { ICONS } from "./icons.js";
-import { renderLandingPage, renderAppsGrid, initScrollAnimations } from "./ui/landingPage.js";
+import { renderLandingPage, renderAppsGrid } from "./ui/landingPage.js";
 import { renderProfilePage } from "./ui/profilePage.js";
 import { renderFooter } from "./ui/footer.js";
 
@@ -80,75 +80,70 @@ function render(state) {
   const isApps = state.currentPage !== "profile";
   const showLanding = state.currentPage === "home" || (!state.user && isApps);
 
-  const isDark = document.documentElement.classList.contains("dark");
-  const themeIcon = isDark ? ICONS.sun : ICONS.moon;
-
-  const compactHeader = !showLanding;
-
   appEl.innerHTML = `
-    <div class="min-h-screen text-ink water-mesh flex flex-col">
-      <header class="w-full z-50 bg-page/80 backdrop-blur-xl border-b border-line ${compactHeader ? "py-4 md:py-5" : "py-8 md:py-20"}">
-        <div class="max-w-7xl mx-auto px-6 ${compactHeader ? "flex items-center justify-between" : "flex flex-col items-center text-center relative"}">
-          <a href="/#home" class="flex items-center gap-3 ${compactHeader ? "" : "mb-4 md:mb-6"} hover:opacity-80 transition-opacity">
-            ${ICONS.droplet}
-            <span class="font-bold text-xl tracking-wider text-accent-text uppercase">GEOGLOWS</span>
+    <div class="min-h-screen flex flex-col">
+      <nav class="site-nav" aria-label="Main">
+        <div class="shell nav-inner">
+          <a href="/#home" class="brand" aria-label="GEOGLOWS home">
+            <img class="logo logo-light" src="/geoglows-logo.webp" alt="GEOGLOWS" width="199" height="38" />
+            <img class="logo logo-dark" src="/geoglows-logo-white.webp" alt="GEOGLOWS" width="184" height="38" />
           </a>
-
-          <nav class="flex items-center gap-3 md:gap-4 ${compactHeader ? "" : "mb-6 md:mb-0 md:absolute md:right-6 md:top-0"}" aria-label="Site navigation">
-            ${state.user ? `
-              <a href="/#library"
-                class="text-sm font-medium transition-colors rounded-lg py-1 px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta ${isApps && !showLanding ? "text-ink" : "text-faint hover:text-body"}">
-                Library
-              </a>
-              ${compactHeader ? `
-                <a href="/#profile"
-                  class="text-sm font-medium transition-colors rounded-lg py-1 px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta ${!isApps ? "text-ink" : "text-faint hover:text-body"}">
-                  Profile
-                </a>
-              ` : ""}
-            ` : ""}
-            ${renderAuthAction(state)}
+          <div class="nav-right">
             <button
-              id="theme-toggle"
-              class="p-2 rounded-lg bg-muted hover:bg-alt text-body transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta"
-              aria-label="${isDark ? "Switch to light mode" : "Switch to dark mode"}"
+              class="nav-toggle"
+              aria-expanded="false"
+              aria-controls="site-menu"
+              aria-label="Open menu"
             >
-              ${themeIcon}
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                <path d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
             </button>
-          </nav>
+            <div class="links" id="site-menu">
+              ${state.user ? `
+                <a href="/#library"${isApps && !showLanding ? ' aria-current="page"' : ""}>Library</a>
+                <a href="/#profile"${!isApps ? ' aria-current="page"' : ""}>Profile</a>
+              ` : ""}
+              <a href="https://www.geoglows.org" target="_blank" rel="noopener noreferrer">geoglows.org</a>
+              <a href="https://training.geoglows.org" target="_blank" rel="noopener noreferrer">Training</a>
+            </div>
+            <div class="nav-auth">
+              ${renderAuthAction(state)}
+            </div>
+          </div>
+        </div>
+      </nav>
 
-          ${showLanding ? `
-            <h1 class="text-3xl md:text-6xl lg:text-7xl tracking-tight mb-3 md:mb-4 leading-tight">
-              <span class="hero-heading">Global Water Intelligence</span>
-            </h1>
-            <p class="text-base text-faint max-w-xl mx-auto">
+      <main id="main-content" class="grow w-full">
+        ${showLanding ? `
+          <header class="shell block-y reveal">
+            <p class="eyebrow">Water intelligence tools</p>
+            <h1 class="section-title max-w-3xl">Global Water Intelligence</h1>
+            <p class="mt-3 text-body max-w-2xl">
               Enabling individuals and organizations to solve local water challenges with global water intelligence.
             </p>
-          ` : ""}
-        </div>
-      </header>
-
-      <main id="main-content" class="max-w-7xl mx-auto px-6 py-10 grow w-full">
-        ${state.status === "error" ? `
-          <div role="alert" class="mb-6 px-4 py-3 rounded-2xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 text-sm">
-            ${state.error}
-          </div>
+          </header>
         ` : ""}
-        ${isApps ? (showLanding ? renderLandingPage() : renderAppsGrid()) : renderProfilePage(state)}
+
+        <div class="shell${showLanding ? " pb-12" : " block-y"}">
+          ${state.status === "error" ? `
+            <div role="alert" class="mb-6 px-4 py-3 rounded-brand bg-error-bg border border-error-border text-error-text text-sm">
+              ${state.error}
+            </div>
+          ` : ""}
+          ${isApps ? (showLanding ? renderLandingPage() : renderAppsGrid()) : renderProfilePage(state)}
+        </div>
       </main>
 
       ${renderFooter()}
     </div>
   `;
-
-  updateThemeIcon();
 }
 
 function renderApp() {
   render(appState);
   bindWorkspaceEvents(setState);
-  updateThemeIcon();
-  if (appState.currentPage === "home" || (appState.currentPage !== "profile" && !appState.user)) initScrollAnimations();
+  initReveal();
 }
 
 async function runBootstrap() {
@@ -166,7 +161,6 @@ async function runBootstrap() {
 }
 
 async function initApp() {
-  initTheme();
 
   // Detect any recovery-URL signal at module load. Used below to decide
   // whether to defer the disclaimer modal so the recovery flow runs first.

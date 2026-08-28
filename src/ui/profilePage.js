@@ -125,7 +125,7 @@ function renderEditMode(state) {
 
       ${
         error
-          ? `<p role="alert" aria-live="polite" class="rounded-xl border border-red-200 bg-red-50 dark:bg-red-950/30 dark:border-red-900 px-4 py-3 text-sm text-red-700 dark:text-red-300">${escape(error)}</p>`
+          ? `<p role="alert" aria-live="polite" class="rounded-brand border border-error-border bg-error-bg px-4 py-3 text-sm text-error-text">${escape(error)}</p>`
           : ""
       }
 
