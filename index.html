@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GEOGLOWS | Global Water Intelligence</title>
   <meta name="description" content="Access open water intelligence tools for river forecasting, groundwater monitoring, and water sustainability research."/>
-  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)"/>
-  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)"/>
+  <meta name="theme-color" content="#fbfdfd" media="(prefers-color-scheme: light)"/>
+  <meta name="theme-color" content="#111a26" media="(prefers-color-scheme: dark)"/>
 
   <!-- Open Graph -->
   <meta property="og:title" content="GEOGLOWS | Global Water Intelligence"/>
@@ -15,19 +15,30 @@
   <meta property="og:image" content="/geoglows-logo.png"/>
 
   <link rel="icon" type="image/png" href="/favicon.png"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+  <!-- GEO Brand Book typefaces, self-hosted to match geoglows.org -->
+  <link rel="preload" href="/fonts/raleway.woff2" as="font" type="font/woff2" crossorigin/>
+  <link rel="preload" href="/fonts/opensans.woff2" as="font" type="font/woff2" crossorigin/>
+
+  <!-- Stamp the theme before first paint so the GEO token layer resolves once.
+       With no attribute set, tokens.css falls back to prefers-color-scheme. -->
+  <script>
+    try {
+      var stored = localStorage.getItem("theme");
+      var dark = stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    } catch (e) {}
+  </script>
 </head>
 <body>
 <div id="app">
   <noscript>
-    <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:Inter,system-ui,sans-serif;color:#475569;text-align:center;padding:2rem">
+    <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Open Sans','Segoe UI',system-ui,sans-serif;color:#55555a;text-align:center;padding:2rem">
       <p>JavaScript is required to use the GEOGLOWS portal.</p>
     </div>
   </noscript>
 </div>
-<dialog id="geoglows-disclaimer-modal" style="margin:auto;height:min(90vh,720px)" class="rounded-2xl p-0 max-w-2xl w-[calc(100vw-2rem)] overflow-hidden backdrop:bg-slate-900/60 backdrop:backdrop-blur-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl"></dialog>
+<dialog id="geoglows-disclaimer-modal" style="margin:auto;height:min(90vh,720px)" class="rounded-brand p-0 max-w-2xl w-[calc(100vw-2rem)] overflow-hidden backdrop:bg-geo-navy-deep/60 backdrop:backdrop-blur-sm bg-page border border-line shadow-2xl"></dialog>
 <script>
   window.__GEOGLOWS_INITIAL_URL__ = {
     hash: window.location.hash,

@@ -69,7 +69,7 @@ function render(state) {
         <div class="text-center opacity-30">
           <div class="flex items-center justify-center gap-3">
             ${ICONS.droplet}
-            <span class="font-bold text-xl tracking-wider text-blue-600 dark:text-slate-400 uppercase">GEOGLOWS</span>
+            <span class="font-bold text-xl tracking-wider text-accent-text uppercase">GEOGLOWS</span>
           </div>
         </div>
       </div>
@@ -86,23 +86,23 @@ function render(state) {
   const compactHeader = !showLanding;
 
   appEl.innerHTML = `
-    <div class="min-h-screen text-slate-800 dark:text-slate-200 water-mesh flex flex-col">
-      <header class="w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-white/5 ${compactHeader ? "py-4 md:py-5" : "py-8 md:py-20"}">
+    <div class="min-h-screen text-ink water-mesh flex flex-col">
+      <header class="w-full z-50 bg-page/80 backdrop-blur-xl border-b border-line ${compactHeader ? "py-4 md:py-5" : "py-8 md:py-20"}">
         <div class="max-w-7xl mx-auto px-6 ${compactHeader ? "flex items-center justify-between" : "flex flex-col items-center text-center relative"}">
           <a href="/#home" class="flex items-center gap-3 ${compactHeader ? "" : "mb-4 md:mb-6"} hover:opacity-80 transition-opacity">
             ${ICONS.droplet}
-            <span class="font-bold text-xl tracking-wider text-blue-600 dark:text-slate-400 uppercase">GEOGLOWS</span>
+            <span class="font-bold text-xl tracking-wider text-accent-text uppercase">GEOGLOWS</span>
           </a>
 
           <nav class="flex items-center gap-3 md:gap-4 ${compactHeader ? "" : "mb-6 md:mb-0 md:absolute md:right-6 md:top-0"}" aria-label="Site navigation">
             ${state.user ? `
               <a href="/#library"
-                class="text-sm font-medium transition-colors rounded-lg py-1 px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${isApps && !showLanding ? "text-slate-800 dark:text-white" : "text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"}">
+                class="text-sm font-medium transition-colors rounded-lg py-1 px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta ${isApps && !showLanding ? "text-ink" : "text-faint hover:text-body"}">
                 Library
               </a>
               ${compactHeader ? `
                 <a href="/#profile"
-                  class="text-sm font-medium transition-colors rounded-lg py-1 px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 ${!isApps ? "text-slate-800 dark:text-white" : "text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"}">
+                  class="text-sm font-medium transition-colors rounded-lg py-1 px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta ${!isApps ? "text-ink" : "text-faint hover:text-body"}">
                   Profile
                 </a>
               ` : ""}
@@ -110,7 +110,7 @@ function render(state) {
             ${renderAuthAction(state)}
             <button
               id="theme-toggle"
-              class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              class="p-2 rounded-lg bg-muted hover:bg-alt text-body transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta"
               aria-label="${isDark ? "Switch to light mode" : "Switch to dark mode"}"
             >
               ${themeIcon}
@@ -118,10 +118,10 @@ function render(state) {
           </nav>
 
           ${showLanding ? `
-            <h1 class="text-3xl md:text-6xl lg:text-7xl font-normal tracking-tight mb-3 md:mb-4 leading-tight">
+            <h1 class="text-3xl md:text-6xl lg:text-7xl tracking-tight mb-3 md:mb-4 leading-tight">
               <span class="hero-heading">Global Water Intelligence</span>
             </h1>
-            <p class="text-base text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
+            <p class="text-base text-faint max-w-xl mx-auto">
               Enabling individuals and organizations to solve local water challenges with global water intelligence.
             </p>
           ` : ""}

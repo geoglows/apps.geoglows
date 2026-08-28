@@ -1,61 +1,236 @@
 @import "tailwindcss";
+@import "./styles/tokens.css";
+@import "./styles/fonts.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* Design docs and plans quote Tailwind class names in prose. Keep them out of
+   the content scan so retired palettes cannot leak back into the build. */
+@source not "../docs";
+@source not "../.agents";
 
-@theme {
-  --font-family-sans: 'Inter', sans-serif;
-  --font-family-display: 'Playfair Display', Georgia, serif;
+/* Dark mode rides the GEO token layer: theme.js stamps data-theme on <html>
+   and tokens.css flips every surface/text/accent token underneath. The dark:
+   variant survives only for the few things a token cannot express, such as
+   swapping a light logo for a white one. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-  /* Light slate palette */
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-200: #e2e8f0;
-  --color-slate-300: #cbd5e1;
-  --color-slate-400: #94a3b8;
-  --color-slate-500: #64748b;
-  --color-slate-600: #475569;
-  --color-slate-700: #334155;
-  --color-slate-800: #1e293b;
-  --color-slate-900: #0f172a;
+/* Bridge the GEO Brand Book tokens into Tailwind's namespaces. `inline` makes
+   utilities emit the referenced var directly (background: var(--surface-page))
+   instead of a build-time snapshot, so the tokens still flip at runtime. */
+/* The primary action colour.
 
-  /* Vibrant blue palette */
-  --color-blue-50: #eff6ff;
-  --color-blue-100: #dbeafe;
-  --color-blue-200: #bfdbfe;
-  --color-blue-400: #60a5fa;
-  --color-blue-500: #3b82f6;
-  --color-blue-600: #2563eb;
-  --color-blue-700: #1d4ed8;
-
-  /* Accent colors */
-  --color-cyan-400: #22d3ee;
-  --color-cyan-500: #06b6d4;
-  --color-indigo-400: #818cf8;
-  --color-indigo-500: #6366f1;
-  --color-sky-400: #38bdf8;
-  --color-sky-500: #0ea5e9;
+   Decided on geoglows.org in af42750, "Realign to the GEO brand: blue-led
+   palette, retire amber": the GEO palette is three cool colours (teal #71acb2,
+   blue #0060a9, emerald #008b7b) and amber/orange are not in it. Primary CTAs
+   default to blue there (CtaButton's `style` default moved amber -> blue), and
+   amber survives only as a rare highlight (map pins) plus the focus ring, which
+   global.css still draws with var(--cta). This portal follows that exactly. */
+:root {
+  --action: var(--color-blue);
+  --action-ink: #ffffff;
 }
 
-html {
-  background-color: var(--color-slate-50);
+@theme inline {
+  /* GEO Brand Book typography: Raleway headings, Open Sans body */
+  --font-sans: "Open Sans", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Raleway", "Open Sans", system-ui, sans-serif;
+
+  /* surfaces */
+  --color-page: var(--surface-page);
+  --color-muted: var(--surface-muted);
+  --color-alt: var(--surface-alt);
+  --color-wash: var(--surface-wash);
+  --color-teal-wash: var(--surface-teal-wash);
+
+  /* text and hairlines */
+  --color-ink: var(--text-strong);
+  --color-body: var(--text-body);
+  --color-faint: var(--text-faint);
+  --color-line: var(--border);
+
+  /* semantic roles */
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-accent-strong: var(--accent-strong);
+  --color-cta: var(--cta);
+  --color-cta-ink: var(--cta-ink);
+  --color-action: var(--action);
+  --color-action-ink: var(--action-ink);
+
+  /* text on the always-dark navy sections (ticker, footer) */
+  --color-on-dark: var(--ink-on-dark);
+  --color-on-dark-muted: var(--ink-on-dark-muted);
+
+  /* GEO brand statics, for the places that need a fixed hue in both themes */
+  --color-geo-teal: var(--color-teal);
+  --color-geo-blue: var(--color-blue);
+  --color-geo-teal-green: var(--color-teal-green);
+  --color-geo-navy: var(--color-navy);
+  --color-geo-navy-deep: var(--color-navy-deep);
+
+  --radius-brand: var(--radius);
+  --radius-brand-sm: 9px;
 }
 
-html.dark {
-  background-color: var(--color-slate-900);
+@layer base {
+  html {
+    background-color: var(--surface-page);
+  }
+
+  body {
+    background-color: var(--surface-page);
+    color: var(--text-body);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Raleway 800 headings, matching geoglows.org's global.css */
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--text-strong);
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  /* GEO focus ring: amber, not blue */
+  :focus-visible {
+    outline: 2px solid var(--cta);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: #fff;
+  }
 }
 
-body {
-  background-color: var(--color-slate-50);
-  min-height: 100vh;
+/* The GEO primary action, mirroring geoglows.org's CtaButton base + .blue.
+   The header sign-in is the nav CTA instead, and uses SiteNav .cta's tighter
+   metrics; see the auth-library override block at the end of this file. */
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 13px 26px;
+  border-radius: 9px;
+  background: var(--action);
+  color: var(--action-ink);
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition:
+    filter 0.16s ease,
+    transform 0.16s ease;
+
+  &:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    filter: none;
+    transform: none;
+  }
 }
 
-.dark body {
-  background-color: var(--color-slate-900);
+@utility btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 13px 26px;
+  border-radius: var(--radius-brand-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-page);
+  color: var(--text-strong);
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition:
+    background 0.16s ease,
+    border-color 0.16s ease;
+
+  &:hover {
+    background: var(--surface-muted);
+    border-color: var(--accent-text);
+  }
 }
 
-::selection {
-  background-color: var(--color-blue-500);
-  color: white;
+/* Card treatment ported from geoglows.org's ToolCard: hairline border,
+   12px radius, page surface, GEO shadow, teal border on hover. */
+.tool-card {
+  background: var(--surface-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  color: var(--text-strong);
+  transition:
+    transform 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+a.tool-card:hover,
+.tool-card:hover {
+  border-color: var(--accent-text);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+/* "Coming soon" pill, matching ToolCard's .badge */
+.tool-badge {
+  background: var(--surface-teal-wash);
+  color: var(--accent-text);
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.hero-heading {
+  color: var(--text-strong);
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+/* Ambient background wash, retinted from the old blue/cyan/indigo mesh to the
+   GEO teal / blue / teal-green trio. */
+.water-mesh {
+  background-color: var(--surface-page);
+  background-image:
+    radial-gradient(at 0% 0%, color-mix(in oklab, var(--color-teal) 22%, transparent) 0, transparent 50%),
+    radial-gradient(at 100% 0%, color-mix(in oklab, var(--color-blue) 16%, transparent) 0, transparent 50%),
+    radial-gradient(at 50% 100%, color-mix(in oklab, var(--color-teal-green) 16%, transparent) 0, transparent 50%);
+}
+
+.ticker-ribbon {
+  --ticker-speed: 30s;
+  background: var(--color-navy-deep);
+  color: var(--ink-on-dark-muted);
+}
+
+.ticker-track {
+  animation: ticker-scroll var(--ticker-speed) linear infinite;
+  width: max-content;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 #geoglows-disclaimer-modal ::-webkit-scrollbar {
@@ -67,86 +242,13 @@ body {
 }
 
 #geoglows-disclaimer-modal ::-webkit-scrollbar-thumb {
-  background: var(--color-slate-300);
+  background: var(--border);
   border-radius: 3px;
-}
-
-.dark #geoglows-disclaimer-modal ::-webkit-scrollbar-thumb {
-  background: var(--color-slate-700);
 }
 
 #geoglows-disclaimer-modal {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-slate-300) transparent;
-}
-
-.dark #geoglows-disclaimer-modal {
-  scrollbar-color: var(--color-slate-700) transparent;
-}
-
-.glass-card {
-  background: white;
-  border: 1px solid var(--color-slate-200);
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dark .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.glass-card:hover {
-  border-color: var(--color-blue-300);
-  box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 8px 10px -6px rgba(59, 130, 246, 0.1);
-}
-
-.dark .glass-card:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(59, 130, 246, 0.5);
-  box-shadow: none;
-}
-
-.hero-heading {
-  font-family: var(--font-family-display);
-  color: var(--color-slate-800);
-}
-
-.dark .hero-heading {
-  color: var(--color-slate-50);
-}
-
-.water-mesh {
-  background-color: var(--color-slate-50);
-  background-image:
-    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.15) 0, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(99, 102, 241, 0.1) 0, transparent 50%);
-}
-
-.dark .water-mesh {
-  background-color: var(--color-slate-900);
-  background-image:
-    radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.3) 0, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(29, 78, 216, 0.3) 0, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(30, 64, 175, 0.2) 0, transparent 50%);
-}
-
-.ticker-ribbon {
-  --ticker-speed: 30s;
-}
-
-.ticker-track {
-  animation: ticker-scroll var(--ticker-speed) linear infinite;
-  width: max-content;
-}
-
-@keyframes ticker-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  scrollbar-color: var(--border) transparent;
 }
 
 @media (min-width: 768px) {
@@ -176,9 +278,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glass-card,
-  .glass-card:hover {
+  .tool-card,
+  .tool-card:hover {
     transition: none;
+    transform: none;
   }
 
   .scroll-reveal.anim-ready,
@@ -195,4 +298,69 @@ body {
   .perspective-panel-right {
     transform: none;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   @geoglows/geoglows-auth overrides.
+
+   The shared auth library ships a minified stylesheet with no custom
+   properties: its accent is hardcoded #2563eb and its modal title is Playfair
+   Display. Its neutral surfaces are already theme-aware (it scopes dark rules
+   as :is([data-theme=dark], .dark)) and sit close enough to the GEO neutrals to
+   leave alone, so only the accent and the display font are retinted here.
+
+   Selectors are :root-prefixed on purpose: the library's stylesheet is bundled
+   after this one, so a bare class selector would lose on source order.
+
+   The durable fix is to expose tokens in geoglows-auth itself and drop this
+   block; until then these selectors must track the library's class names.
+   --------------------------------------------------------------------------- */
+
+:root .geoglows-auth-action-signin {
+  background: var(--action);
+  color: var(--action-ink);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-height: 44px;
+}
+
+:root .geoglows-auth-action-signin:hover {
+  background: var(--action);
+  filter: brightness(1.08);
+}
+
+:root .geoglows-signin-submit {
+  background: var(--action);
+  color: var(--action-ink);
+  border-radius: 9px;
+  font-weight: 800;
+}
+
+:root .geoglows-signin-submit:hover:not(:disabled) {
+  background: var(--action);
+  filter: brightness(1.08);
+}
+
+:root .geoglows-signin-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+:root .geoglows-signin-toggle-button {
+  color: var(--accent-text);
+}
+
+:root .geoglows-signin-input:focus {
+  outline: 2px solid var(--cta);
+}
+
+:root .geoglows-auth-action-loading-dot {
+  background: var(--accent);
+}
+
+:root .geoglows-auth-action-avatar-summary {
+  background: var(--color-navy);
+  color: var(--ink-on-dark);
 }

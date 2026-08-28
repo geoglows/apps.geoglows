@@ -1,18 +1,27 @@
 import { ICONS } from "./icons.js";
 
+/* The GEO token layer keys off data-theme on <html> (see src/styles/tokens.css).
+   index.html stamps the attribute inline before first paint; these helpers keep
+   it and localStorage in sync afterwards. */
+
+function currentTheme() {
+  return document.documentElement.getAttribute("data-theme") === "dark"
+    ? "dark"
+    : "light";
+}
+
 export function initTheme() {
   const stored = localStorage.getItem("theme");
-  if (
+  const dark =
     stored === "dark" ||
-    (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
-  ) {
-    document.documentElement.classList.add("dark");
-  }
+    (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
 }
 
 export function toggleTheme() {
-  const isDark = document.documentElement.classList.toggle("dark");
-  localStorage.setItem("theme", isDark ? "dark" : "light");
+  const next = currentTheme() === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
   updateThemeIcon();
 }
 
@@ -20,6 +29,5 @@ export function updateThemeIcon() {
   const btn = document.getElementById("theme-toggle");
   if (!btn) return;
 
-  const isDark = document.documentElement.classList.contains("dark");
-  btn.innerHTML = isDark ? ICONS.sun : ICONS.moon;
+  btn.innerHTML = currentTheme() === "dark" ? ICONS.sun : ICONS.moon;
 }

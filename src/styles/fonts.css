@@ -1,0 +1,16 @@
+/* GEO brand typography: Raleway (headings) + Open Sans (body), per GEO Brand Book */
+@font-face {
+  font-family: "Raleway";
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/raleway.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/opensans.woff2") format("woff2");
+}

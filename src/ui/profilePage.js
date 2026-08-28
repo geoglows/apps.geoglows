@@ -18,7 +18,7 @@ const USER_TYPE_LABELS = Object.fromEntries(
 function fieldRow(label, displayHtml) {
   return `
     <div>
-      <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">${escape(label)}</p>
+      <p class="text-xs font-semibold uppercase tracking-wider text-faint">${escape(label)}</p>
       <p class="mt-1 text-sm">${displayHtml}</p>
     </div>
   `;
@@ -26,8 +26,8 @@ function fieldRow(label, displayHtml) {
 
 function field(label, value, opts = {}) {
   const display = value
-    ? `<span class="text-slate-800 dark:text-slate-200">${escape(value)}</span>`
-    : `<span class="italic text-slate-400 dark:text-slate-500">${escape(opts.empty ?? "Not provided")}</span>`;
+    ? `<span class="text-ink">${escape(value)}</span>`
+    : `<span class="italic text-faint">${escape(opts.empty ?? "Not provided")}</span>`;
   return fieldRow(label, display);
 }
 
@@ -39,12 +39,12 @@ function renderCompletionBanner(state) {
 
   return `
     <div role="alert" aria-label="Profile completion reminder"
-      class="mb-6 flex flex-wrap items-center gap-3 rounded-2xl border border-amber-300 bg-amber-50 dark:border-amber-700 dark:bg-amber-900/20 px-4 py-3">
-      <div class="flex-1 min-w-[200px] text-sm text-amber-900 dark:text-amber-200">
+      class="mb-6 flex flex-wrap items-center gap-3 rounded-brand border border-line bg-teal-wash px-4 py-3">
+      <div class="flex-1 min-w-[200px] text-sm text-accent-text">
         Your profile is missing your name. Complete it so we can address you correctly.
       </div>
       <button type="button" id="profileBannerComplete"
-        class="px-3 py-1.5 min-h-[44px] rounded-lg text-sm font-semibold bg-amber-600 hover:bg-amber-700 text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2">
+        class="btn-primary text-sm">
         Complete profile
       </button>
     </div>
@@ -64,24 +64,24 @@ function renderViewMode(state) {
   const userLinkRow = safeLink
     ? fieldRow(
         "Personal link",
-        `<a href="${escape(safeLink)}" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline break-all">${escape(profile.user_link)}</a>`,
+        `<a href="${escape(safeLink)}" target="_blank" rel="noopener noreferrer" class="text-accent-text hover:underline break-all">${escape(profile.user_link)}</a>`,
       )
     : field("Personal link", null, { empty: "—" });
 
   return `
-    <div class="glass-card rounded-2xl p-6 md:p-8 shadow-sm">
+    <div class="tool-card rounded-2xl p-6 md:p-8 shadow-sm">
       <div class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
         <div class="flex items-center gap-4">
-          <div class="w-16 h-16 rounded-2xl bg-blue-600 text-white text-xl font-bold flex items-center justify-center shadow-sm">
+          <div class="w-16 h-16 rounded-brand bg-geo-navy text-on-dark text-xl font-bold flex items-center justify-center shadow-sm">
             ${escape(initials)}
           </div>
           <div>
-            <h3 class="font-display text-2xl text-slate-800 dark:text-white">${escape(name)}</h3>
-            <p class="text-sm text-slate-600 dark:text-slate-400">${escape(email)}</p>
+            <h3 class="font-display text-2xl text-ink">${escape(name)}</h3>
+            <p class="text-sm text-body">${escape(email)}</p>
           </div>
         </div>
         <button type="button" id="profileEditButton"
-          class="self-start px-4 py-2 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+          class="btn-primary self-start shadow-sm">
           Edit profile
         </button>
       </div>
@@ -113,13 +113,13 @@ function renderEditMode(state) {
   ).join("");
 
   return `
-    <form id="profileEditForm" novalidate class="glass-card rounded-2xl p-6 md:p-8 shadow-sm space-y-5">
+    <form id="profileEditForm" novalidate class="tool-card rounded-2xl p-6 md:p-8 shadow-sm space-y-5">
       <div>
-        <h2 class="font-display text-2xl text-slate-800 dark:text-white">Edit profile</h2>
-        <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Update your information. Your account email is shown below and cannot be changed here.</p>
+        <h2 class="font-display text-2xl text-ink">Edit profile</h2>
+        <p class="mt-1 text-sm text-body">Update your information. Your account email is shown below and cannot be changed here.</p>
       </div>
 
-      <div class="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm text-slate-600 dark:text-slate-300">
+      <div class="rounded-xl bg-muted px-4 py-2 text-sm text-body">
         Account email: <strong>${escape(email)}</strong>
       </div>
 
@@ -131,30 +131,30 @@ function renderEditMode(state) {
 
       <div class="grid gap-4 sm:grid-cols-3">
         <div>
-          <label for="profileFirstName" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">First name *</label>
+          <label for="profileFirstName" class="block text-xs font-semibold uppercase tracking-wider text-faint mb-1">First name *</label>
           <input id="profileFirstName" name="first_name" type="text" autocomplete="given-name" ${pending ? "disabled" : ""}
             value="${escape(profile.first_name ?? "")}"
-            class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+            class="w-full px-3 py-2 rounded-xl border border-line bg-page text-sm focus:outline-none focus:ring-2 focus:ring-cta" required />
         </div>
         <div>
-          <label for="profileMiddleName" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Middle name</label>
+          <label for="profileMiddleName" class="block text-xs font-semibold uppercase tracking-wider text-faint mb-1">Middle name</label>
           <input id="profileMiddleName" name="middle_name" type="text" autocomplete="additional-name" ${pending ? "disabled" : ""}
             value="${escape(profile.middle_name ?? "")}"
-            class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            class="w-full px-3 py-2 rounded-xl border border-line bg-page text-sm focus:outline-none focus:ring-2 focus:ring-cta" />
         </div>
         <div>
-          <label for="profileLastName" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Last name *</label>
+          <label for="profileLastName" class="block text-xs font-semibold uppercase tracking-wider text-faint mb-1">Last name *</label>
           <input id="profileLastName" name="last_name" type="text" autocomplete="family-name" ${pending ? "disabled" : ""}
             value="${escape(profile.last_name ?? "")}"
-            class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+            class="w-full px-3 py-2 rounded-xl border border-line bg-page text-sm focus:outline-none focus:ring-2 focus:ring-cta" required />
         </div>
       </div>
 
       <div class="grid gap-4 sm:grid-cols-2">
         <div>
-          <label for="profileUserType" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">User type</label>
+          <label for="profileUserType" class="block text-xs font-semibold uppercase tracking-wider text-faint mb-1">User type</label>
           <select id="profileUserType" name="user_type" ${pending ? "disabled" : ""}
-            class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            class="w-full px-3 py-2 rounded-xl border border-line bg-page text-sm focus:outline-none focus:ring-2 focus:ring-cta">
             <option value="">Select…</option>
             ${userTypeOptionsHtml}
           </select>
@@ -162,19 +162,19 @@ function renderEditMode(state) {
       </div>
 
       <div>
-        <label for="profileLink" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Personal link (URL)</label>
+        <label for="profileLink" class="block text-xs font-semibold uppercase tracking-wider text-faint mb-1">Personal link (URL)</label>
         <input id="profileLink" name="user_link" type="url" autocomplete="url" placeholder="https://" ${pending ? "disabled" : ""}
           value="${escape(profile.user_link ?? "")}"
-          class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          class="w-full px-3 py-2 rounded-xl border border-line bg-page text-sm focus:outline-none focus:ring-2 focus:ring-cta" />
       </div>
 
       <div class="flex justify-end gap-2 pt-2">
         <button type="button" id="profileEditCancel" ${pending ? "disabled" : ""}
-          class="px-4 py-2 min-h-[44px] rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 font-semibold transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+          class="btn-secondary disabled:opacity-60">
           Cancel
         </button>
         <button type="submit" ${pending ? "disabled" : ""}
-          class="px-4 py-2 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+          class="btn-primary shadow-sm">
           ${pending ? "Saving…" : "Save changes"}
         </button>
       </div>
@@ -186,17 +186,17 @@ export function renderProfilePage(state) {
   if (!state.user) {
     return `
       <div class="flex flex-col items-center justify-center py-24 text-center gap-6">
-        <div class="w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center">
+        <div class="w-16 h-16 rounded-2xl bg-wash flex items-center justify-center">
           ${ICONS.droplet}
         </div>
         <div>
-          <h2 class="font-display text-2xl text-slate-800 dark:text-white mb-2">Sign in to view your profile</h2>
-          <p class="text-slate-600 dark:text-slate-400 max-w-sm">
+          <h2 class="font-display text-2xl text-ink mb-2">Sign in to view your profile</h2>
+          <p class="text-body max-w-sm">
             Create an account or sign in to manage your GEOGLOWS profile.
           </p>
         </div>
         <button id="signIn"
-          class="px-6 py-3 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+          class="btn-primary shadow-sm">
           Sign in
         </button>
       </div>
@@ -208,13 +208,13 @@ export function renderProfilePage(state) {
   return `
     <section>
       <div class="mb-5">
-        <h2 class="font-display text-3xl text-slate-800 dark:text-white">Your Profile</h2>
-        <p class="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl">
+        <h2 class="font-display text-3xl text-ink">Your Profile</h2>
+        <p class="mt-2 text-body max-w-2xl">
           Manage your GEOGLOWS account details. Your information is private to you.
         </p>
       </div>
       ${state.profileSaveSuccess ? `
-        <div role="status" class="mb-6 px-4 py-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 text-sm">
+        <div role="status" class="mb-6 px-4 py-3 rounded-brand border border-line bg-wash text-accent-text text-sm">
           Profile updated successfully.
         </div>
       ` : ""}

@@ -27,14 +27,17 @@
 - `src/account.js` — wrappers around `loadAccountSummary` / `updateProfile` / `isProfileComplete` from the lib; injects current user
 - `src/events.js` — every DOM event handler the portal binds; records app visits on card clicks; binds the lib's namespaced auth IDs `#geoglowsSignIn` / `#geoglowsSignOut`. Re-bound on every render
 - `src/disclaimer.js` — first-visit disclaimer modal logic, localStorage persistence, version-gated re-acknowledgment
-- `src/style.css` — Tailwind v4 theme overrides (Playfair Display + Inter fonts, slate/blue palette), glass-card component, ticker animation, perspective panel transforms, scroll-reveal with `anim-ready` pattern, `prefers-reduced-motion` compliance
+- `src/style.css` — the GEO brand bridge: imports `styles/tokens.css` + `styles/fonts.css`, re-exposes them to Tailwind via `@theme inline` (so tokens flip at runtime), repoints the `dark:` variant to `[data-theme]`, defines `btn-primary` / `btn-secondary` / `tool-card` / `tool-badge` / `water-mesh` / ticker + scroll-reveal rules, and ends with scoped `:root`-prefixed overrides that retint `@geoglows/geoglows-auth`'s hardcoded blue and Playfair
+- `src/styles/tokens.css`, `src/styles/fonts.css` — **copied byte-for-byte from geoglows.org**. Keep them identical; do not edit here
 - `supabase/migrations/` — Supabase CLI migrations (forward-only). `profiles` table + RLS policies live here
 
 The vanilla sign-in modal, navbar auth-action slot, and `escapeHtml` helper live in `@aquaveo/geoglows-auth/core` (imported via `mountSignInModal`, `renderAuthAction`, `escapeHtml`). The matching CSS ships at `@aquaveo/geoglows-auth/core/sign-in.css`.
 
 ## Conventions
 - Vanilla JS only (no TypeScript, no JSX, no React)
-- Tailwind utility classes inline; no `@apply` or component CSS in app-owned `src/` — UI components imported from `@aquaveo/geoglows-auth` ship their own plain CSS and are exempt
+- Tailwind utility classes inline; no `@apply` in app-owned `src/`. Component classes live in `src/style.css` only for cross-cutting treatments (`tool-card`, `water-mesh`); prefer `@utility` for anything button-like
+- **Name semantic tokens, never palette scales.** `bg-page` / `text-ink` / `border-line`, not `bg-white` / `text-slate-800` / `border-slate-200`. Dark mode comes from the token layer, so a `dark:` colour variant is almost always a mistake. See `.agents/context/DESIGN.md`
+- Headings are Raleway 800 via a base rule; never add `font-normal` to one
 - Native `<dialog>` for modals. Use `margin: auto` for centering (not `position: fixed` + `transform: translate(-50%)` — WebKit computes 0 height with that approach). Give dialogs explicit height via inline style for Safari compatibility
 - Hash links use root-relative paths (`/#home`, `/#library`, `/#profile`) to avoid sub-app path concatenation issues
 - Profile-of-record is the `profiles` table. `user_metadata` from Supabase Auth is sign-up-time identity ONLY — never re-flow it into `profiles` on subsequent sign-ins. See `geoglows-auth/docs/solutions/best-practices/user-metadata-is-auth-identity-not-profile-of-record-2026-04-29.md`
@@ -65,7 +68,7 @@ The vanilla sign-in modal, navbar auth-action slot, and `escapeHtml` helper live
 - `docs/plans/` — engineering plans (`YYYY-MM-DD-NNN-<type>-<descriptive-name>-plan.md`). Living documents with progress checkboxes; see existing plans for format
 - `docs/solutions/` — captured learnings from past problems (bugs, best practices, workflow patterns), organized by category with YAML frontmatter (`module`, `tags`, `problem_type`). Relevant when implementing or debugging in documented areas — grep here before reinventing
 - `docs/designs/` — design remake proposals for sub-apps (Hydroviewer, GRACE)
-- `.agents/context/DESIGN.md` — design system tokens, components, and conventions ("The Field Station" north star)
+- `.agents/context/DESIGN.md` — design system tokens, components, and conventions (GEO Brand Book, shared with geoglows.org)
 - `.agents/context/PRODUCT.md` — product context, users, brand personality, design principles
 
 ## Disclaimer

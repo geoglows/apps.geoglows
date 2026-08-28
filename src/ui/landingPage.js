@@ -54,7 +54,7 @@ function createAppShowcase(app, index) {
     `
     : `
       <div class="scroll-reveal shrink-0" data-anim="slide" data-anim-dir="${imgDir}">
-        <div class="w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center ${app.iconClass} bg-blue-50 dark:bg-blue-500/10">
+        <div class="w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center ${app.iconClass} bg-wash">
           ${iconSvg}
         </div>
       </div>
@@ -67,21 +67,21 @@ function createAppShowcase(app, index) {
           ${imagesHtml}
           <div class="scroll-reveal text-left ${isEven ? "md:text-left" : "md:text-right"} md:w-[380px] shrink-0" data-anim="slide" data-anim-dir="${textDir}">
             <div class="flex items-center gap-2 mb-4 ${isEven ? "" : "md:justify-end"}">
-              <div class="p-2 rounded-xl ${app.iconClass} bg-blue-50 dark:bg-blue-500/10">
+              <div class="p-2 rounded-xl ${app.iconClass} bg-wash">
                 ${iconSvg}
               </div>
-              <p class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-600">
+              <p class="text-xs font-bold uppercase tracking-widest text-faint">
                 ${app.tags[0] || "Tool"}
               </p>
             </div>
-            <h2 class="font-display text-2xl md:text-4xl font-normal text-slate-800 dark:text-white mb-3 md:mb-4">
+            <h2 class="font-display text-2xl md:text-4xl text-ink mb-3 md:mb-4">
               ${app.name}
             </h2>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+            <p class="text-body leading-relaxed mb-6">
               ${context}
             </p>
             <a href="${app.path}"
-              class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg px-1 py-0.5 -mx-1">
+              class="inline-flex items-center gap-2 text-sm font-semibold text-accent-text hover:text-accent-strong transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta rounded-lg px-1 py-0.5 -mx-1">
               Open ${app.name.split(" ")[0]}
               ${ICONS.arrowUpRight}
             </a>
@@ -100,24 +100,24 @@ function createAppCard(app) {
 
   return `
     <a href="${href}"${target} data-app-id="${app.id}"
-      class="glass-card p-5 md:p-8 rounded-2xl flex flex-col group relative overflow-hidden hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+      class="tool-card p-5 md:p-8 rounded-2xl flex flex-col group relative overflow-hidden hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cta">
       <div class="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
         ${ICONS.arrowUpRight}
       </div>
-      <div class="mb-5 p-3 bg-blue-100 dark:bg-blue-500/10 rounded-xl w-fit group-hover:bg-blue-200 dark:group-hover:bg-blue-500/20 transition-colors ${app.iconClass}">
+      <div class="mb-5 p-3 bg-wash rounded-xl w-fit group-hover:bg-teal-wash transition-colors ${app.iconClass}">
         ${iconSvg}
       </div>
-      <h3 class="font-display text-xl text-slate-800 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+      <h3 class="font-display text-xl text-ink mb-2 group-hover:text-accent-text transition-colors">
         ${app.name}
       </h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6 grow">
+      <p class="text-sm text-body leading-relaxed mb-6 grow">
         ${app.description}
       </p>
       <div class="flex flex-wrap gap-2 mt-auto">
         ${app.tags
           .map(
             (tag) => `
-          <span class="text-xs text-slate-500 dark:text-slate-400">
+          <span class="text-xs text-faint">
             ${tag}
           </span>
         `,
@@ -138,7 +138,7 @@ function renderRecentApps() {
   if (!recentCards.length) return "";
   return `
     <section class="mb-12">
-      <p class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-600 mb-4">Recent</p>
+      <p class="text-xs font-bold uppercase tracking-widest text-faint mb-4">Recent</p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         ${recentCards.join("")}
       </div>
@@ -151,10 +151,10 @@ export function renderAppsGrid() {
     ${renderRecentApps()}
     <section>
       <div class="mb-6">
-        <h2 class="font-display text-3xl text-slate-800 dark:text-white">
+        <h2 class="font-display text-3xl text-ink">
           App Library
         </h2>
-        <p class="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl">
+        <p class="mt-2 text-body max-w-2xl">
           Explore GEOGLOWS applications for forecasting, groundwater, and water intelligence workflows.
         </p>
       </div>
@@ -167,8 +167,8 @@ export function renderAppsGrid() {
 
 export function renderLandingPage_old() {
   return `
-    <div class="ticker-ribbon -mx-6 overflow-hidden bg-slate-800 dark:bg-slate-950 py-2 mb-8" aria-hidden="true">
-      <div class="ticker-track flex gap-12 whitespace-nowrap text-xs font-mono tracking-wider text-slate-400">
+    <div class="ticker-ribbon -mx-6 overflow-hidden bg-geo-navy-deep py-2 mb-8" aria-hidden="true">
+      <div class="ticker-track flex gap-12 whitespace-nowrap text-xs font-mono tracking-wider text-on-dark-muted">
         <span>47° 22' 41" N, 8° 32' 33" E · ZURICH</span>
         <span>GLOBAL WATER INTELLIGENCE</span>
         <span>23° 33' 0" S, 46° 38' 0" W · SÃO PAULO</span>
@@ -194,12 +194,12 @@ export function renderLandingPage_old() {
           alt="Global river network map showing GEOGLOWS streamflow monitoring coverage across all continents"
           loading="eager" width="1626" height="887"
           class="w-full h-[60vh] md:h-[80vh] object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-t from-slate-800/90 via-slate-800/30 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-geo-navy-deep/90 via-geo-navy-deep/30 to-transparent"></div>
         <div class="absolute bottom-0 left-0 right-0 p-6 md:p-12">
-          <p class="font-display text-xl md:text-4xl text-white max-w-3xl leading-snug mb-2 md:mb-3">
+          <p class="font-display text-xl md:text-4xl text-on-dark max-w-3xl leading-snug mb-2 md:mb-3">
             Advancing global water sustainability through open Earth observation data.
           </p>
-          <p class="text-xs md:text-base text-white/70 max-w-xl">
+          <p class="text-xs md:text-base text-on-dark-muted max-w-xl">
             7 million river reaches. Daily forecasts. Historical streamflow data back to 1940.
           </p>
         </div>
@@ -209,10 +209,10 @@ export function renderLandingPage_old() {
     <section class="scroll-section px-6 py-12">
       <div class="max-w-5xl mx-auto">
         <div class="scroll-reveal mb-8" data-anim="slide" data-anim-dir="left">
-          <h2 class="font-display text-3xl text-slate-800 dark:text-white mb-2">
+          <h2 class="font-display text-3xl text-ink mb-2">
             Explore
           </h2>
-          <p class="text-slate-600 dark:text-slate-400 max-w-xl">
+          <p class="text-body max-w-xl">
             Choose a tool and begin exploring. Create an account for personalized features.
           </p>
         </div>
@@ -224,10 +224,10 @@ export function renderLandingPage_old() {
     
     <section class="scroll-section py-12 md:py-24">
       <div class="scroll-reveal max-w-4xl mx-auto text-center px-6" data-anim="scale">
-        <p class="font-display text-2xl md:text-5xl text-slate-800 dark:text-white leading-tight">
+        <p class="font-display text-2xl md:text-5xl text-ink leading-tight">
           Don't just monitor water.
         </p>
-        <p class="font-display text-2xl md:text-5xl text-blue-600 dark:text-blue-400 leading-tight">
+        <p class="font-display text-2xl md:text-5xl text-accent-text leading-tight">
           Understand it.
         </p>
       </div>
@@ -250,17 +250,17 @@ export function renderLandingPage_old() {
           </div>
           <div class="scroll-reveal md:text-left md:w-[380px] shrink-0" data-anim="slide" data-anim-dir="right">
             <div class="flex items-center gap-2 mb-4">
-              <span class="px-2.5 py-1 rounded-full text-[0.65rem] font-bold uppercase tracking-widest bg-amber-100 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400">
+              <span class="tool-badge px-2.5 py-1 text-[0.65rem] uppercase tracking-widest">
                 Coming soon
               </span>
             </div>
-            <h2 class="font-display text-2xl md:text-4xl font-normal text-slate-800 dark:text-white mb-3 md:mb-4">
+            <h2 class="font-display text-2xl md:text-4xl text-ink mb-3 md:mb-4">
               Aquifer Analyst
             </h2>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            <p class="text-body leading-relaxed mb-4">
               Map well networks, visualize water table elevations, and analyze groundwater trends across aquifer regions.
             </p>
-            <p class="text-sm text-slate-400 dark:text-slate-600">
+            <p class="text-sm text-faint">
               Currently in development. Stay tuned for the public release.
             </p>
           </div>
@@ -275,10 +275,10 @@ export function renderLandingPage(){
    <section class="scroll-section px-6 py-12">
       <div class="max-w-5xl mx-auto">
         <div class="scroll-reveal mb-8" data-anim="slide" data-anim-dir="left">
-          <h2 class="font-display text-3xl text-slate-800 dark:text-white mb-2">
+          <h2 class="font-display text-3xl text-ink mb-2">
             Explore
           </h2>
-          <p class="text-slate-600 dark:text-slate-400 max-w-xl">
+          <p class="text-body max-w-xl">
             Choose a tool and begin exploring. Create an account for personalized features.
           </p>
         </div>
@@ -289,10 +289,10 @@ export function renderLandingPage(){
     </section>
     <section class="scroll-section py-12 md:py-24">
       <div class="scroll-reveal max-w-4xl mx-auto text-center px-6" data-anim="scale">
-        <p class="font-display text-2xl md:text-5xl text-slate-800 dark:text-white leading-tight">
+        <p class="font-display text-2xl md:text-5xl text-ink leading-tight">
           Don't just monitor water.
         </p>
-        <p class="font-display text-2xl md:text-5xl text-blue-600 dark:text-blue-400 leading-tight">
+        <p class="font-display text-2xl md:text-5xl text-accent-text leading-tight">
           Understand it.
         </p>
       </div>
