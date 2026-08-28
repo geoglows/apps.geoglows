@@ -1,0 +1,108 @@
+/* GEO Brand Book colour system — main, secondary, neutrals — exposed as design tokens.
+   Light is the default; dark is applied via prefers-color-scheme and [data-theme]. */
+:root {
+  /* main colours */
+  --color-teal: #71acb2;
+  --color-blue: #0060a9;
+  --color-teal-green: #008b7b;
+
+  /* secondary colours */
+  --color-navy: #243754;
+  --color-navy-deep: #1d1d24;
+  --color-green: #587246;
+  --color-green-dark: #4b5f3a;
+  --color-amber: #ffbf00;
+  --color-orange: #f47920;
+
+  /* surfaces + neutrals (tinted a hair toward the brand teal) */
+  --surface-page: #fbfdfd;
+  --surface-muted: #eef1f4;
+  --surface-alt: #e6eaef;
+  --surface-wash: #e7f0ed;
+  --surface-teal-wash: #ccdbdc;
+
+  /* text — small-text tokens meet WCAG AA (>=4.5:1) on page and muted surfaces */
+  --text-strong: #1d1d24;
+  --text-body: #55555a;
+  --text-faint: #5c5c61;
+  --border: #d6dee1;
+
+  /* semantic roles */
+  --accent: var(--color-teal-green);
+  --accent-text: #0a6157; /* AA-safe teal for small text and filled chips */
+  --accent-strong: var(--color-blue);
+  --cta: var(--color-amber);
+  --cta-ink: #3a2a06;
+
+  /* text on the always-dark navy sections (stat band, footer) */
+  --ink-on-dark: #eaf2f7;
+  --ink-on-dark-muted: #a6bccb;
+  --hairline-on-dark: rgba(233, 240, 246, 0.15);
+
+  /* logo tint for funder/partner strips, per theme.
+     Light: keep logos dark (grayscale); white artwork darkens via -invert-.
+     Dark: -tint- normalizes line/wordmark logos to crisp white; -emblem-tint-
+     lifts filled multi-tone emblems (NASA, NOAA, NGA) to light while keeping
+     their internal detail instead of flattening them to a solid disc. */
+  --logo-tint: grayscale(1);
+  --logo-invert-tint: brightness(0);
+  --logo-emblem-tint: grayscale(1);
+
+  /* section vertical rhythm */
+  --block-space: clamp(44px, 5vw, 76px);
+
+  /* elevation */
+  --shadow-sm: 0 1px 2px rgba(29, 29, 36, 0.06), 0 4px 14px rgba(29, 29, 36, 0.06);
+  --shadow-md: 0 2px 6px rgba(29, 29, 36, 0.08), 0 16px 40px rgba(29, 29, 36, 0.1);
+
+  /* layout scale */
+  --page-max: 1200px;
+  --gutter: 28px;
+  --radius: 12px;
+}
+
+:root[data-theme="dark"],
+:root:not([data-theme]) {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface-page: #111a26;
+    --surface-muted: #1c2837;
+    --surface-alt: #17222f;
+    --surface-wash: #14262a;
+    --surface-teal-wash: #1a3234;
+    --text-strong: #e8eef3;
+    --text-body: #aabac2;
+    --text-faint: #708491;
+    --border: #26343d;
+    --accent: #4fb3a4;
+    --accent-text: #6fd0c0;
+    --accent-strong: #4fb7d8;
+    /* Line/wordmark logos to crisp white; filled emblems keep their detail. */
+    --logo-tint: brightness(0) invert(1);
+    --logo-invert-tint: brightness(0) invert(1);
+    --logo-emblem-tint: grayscale(1) brightness(1.9) contrast(1.15);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --surface-page: #111a26;
+  --surface-muted: #1c2837;
+  --surface-alt: #17222f;
+  --surface-wash: #14262a;
+  --surface-teal-wash: #1a3234;
+  --text-strong: #e8eef3;
+  --text-body: #aabac2;
+  --text-faint: #708491;
+  --border: #26343d;
+  --accent: #4fb3a4;
+  --accent-text: #6fd0c0;
+  --accent-strong: #4fb7d8;
+  --logo-tint: brightness(0) invert(1);
+  --logo-invert-tint: brightness(0) invert(1);
+  --logo-emblem-tint: grayscale(1) brightness(1.9) contrast(1.15);
+  color-scheme: dark;
+}

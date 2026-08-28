@@ -21,10 +21,6 @@ vi.mock("../src/auth.js", () => ({
   SIGN_IN_REQUESTED_EVENT: "geoglows:sign-in-requested",
 }));
 
-vi.mock("../src/theme.js", () => ({
-  toggleTheme: vi.fn(),
-}));
-
 vi.mock("../src/supabase.js", () => ({
   supabase: { auth: {} },
 }));

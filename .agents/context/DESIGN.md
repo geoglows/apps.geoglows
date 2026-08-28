@@ -1,235 +1,345 @@
 ---
 name: GEOGLOWS Portal
 description: Open-access water intelligence tools for researchers and decision-makers worldwide.
+brand: GEO Brand Book, shared verbatim with geoglows.org
+tokenSource: src/styles/tokens.css (copied byte-for-byte from geoglows.org)
 colors:
-  primary: "#2563eb"
-  primary-hover: "#1d4ed8"
-  primary-light: "#eff6ff"
-  canvas-light: "#f8fafc"
-  canvas-dark: "#0f172a"
-  surface-light: "#ffffff"
-  ticker-bg: "#1e293b"
-  text-primary-light: "#1e293b"
-  text-secondary-light: "#475569"
-  text-muted-light: "#94a3b8"
-  border-light: "#e2e8f0"
-  coming-soon-bg: "#fef3c7"
-  coming-soon-text: "#a16207"
-  manifesto-accent: "#2563eb"
+  teal: "#71acb2"
+  blue: "#0060a9"
+  teal-green: "#008b7b"
+  navy: "#243754"
+  navy-deep: "#1d1d24"
+  green: "#587246"
+  amber: "#ffbf00"   # off-palette; focus ring only (af42750)
+  orange: "#f47920"  # off-palette; do not use
+  surface-page: "#fbfdfd"
+  surface-muted: "#eef1f4"
+  surface-alt: "#e6eaef"
+  surface-wash: "#e7f0ed"
+  surface-teal-wash: "#ccdbdc"
+  text-strong: "#1d1d24"
+  text-body: "#55555a"
+  text-faint: "#5c5c61"
+  border: "#d6dee1"
+  accent: "{colors.teal-green}"
+  accent-text: "#0a6157"
+  accent-strong: "{colors.blue}"
+  cta: "{colors.amber}"   # focus ring only
+  cta-ink: "#3a2a06"
+  action: "{colors.blue}" # every primary action
+  ink-on-dark: "#eaf2f7"
+  ink-on-dark-muted: "#a6bccb"
 typography:
   display:
-    fontFamily: "'Playfair Display', Georgia, serif"
-    fontSize: "clamp(2rem, 5vw, 4.5rem)"
-    fontWeight: 400
-    lineHeight: 1.1
-  heading:
-    fontFamily: "'Playfair Display', Georgia, serif"
-    fontSize: "clamp(1.875rem, 3vw, 2.25rem)"
-    fontWeight: 400
-    lineHeight: 1.2
-  manifesto:
-    fontFamily: "'Playfair Display', Georgia, serif"
-    fontSize: "clamp(1.875rem, 4vw, 3rem)"
-    fontWeight: 400
-    lineHeight: 1.15
+    fontFamily: "'Raleway', 'Open Sans', system-ui, sans-serif"
+    fontWeight: 800
+    lineHeight: 1.12
+    letterSpacing: "-0.015em"
   body:
-    fontFamily: "'Inter', sans-serif"
-    fontSize: "1rem"
+    fontFamily: "'Open Sans', 'Segoe UI', system-ui, sans-serif"
     fontWeight: 400
     lineHeight: 1.6
-  label:
-    fontFamily: "'Inter', sans-serif"
-    fontSize: "0.75rem"
-    fontWeight: 700
-    letterSpacing: "0.1em"
-  ticker:
-    fontFamily: "ui-monospace, SFMono-Regular, monospace"
-    fontSize: "0.75rem"
-    letterSpacing: "0.05em"
 rounded:
-  sm: "0.5rem"
-  md: "0.75rem"
-  lg: "1rem"
+  brand: "12px"
+  brand-sm: "9px"
   full: "9999px"
 spacing:
-  xs: "0.25rem"
-  sm: "0.5rem"
-  md: "1rem"
-  lg: "1.5rem"
-  xl: "2.5rem"
-  section: "5rem"
+  block: "clamp(44px, 5vw, 76px)"
+  page-max: "1200px"
+  gutter: "28px"
 components:
-  button-primary:
-    backgroundColor: "{colors.primary}"
+  btn-primary:
+    background: "{colors.action}"
     textColor: "#ffffff"
-    rounded: "{rounded.md}"
-    padding: "0.5rem 1rem"
-  button-primary-hover:
-    backgroundColor: "{colors.primary-hover}"
-  button-secondary:
-    backgroundColor: "{colors.surface-light}"
-    textColor: "{colors.text-primary-light}"
-    rounded: "{rounded.md}"
-    padding: "0.5rem 1rem"
-  glass-card:
-    backgroundColor: "{colors.surface-light}"
-    rounded: "{rounded.lg}"
-    padding: "1.5rem 2rem"
+    rounded: "9px"
+    fontWeight: 800
+    fontSize: "0.95rem"
+    minHeight: "44px"
+  btn-secondary:
+    background: "{colors.surface-page}"
+    border: "1px solid {colors.border}"
+    textColor: "{colors.text-strong}"
+    rounded: "8px"
+  tool-card:
+    background: "{colors.surface-page}"
+    border: "1px solid {colors.border}"
+    rounded: "{rounded.brand}"
+    shadow: "var(--shadow-sm)"
 ---
 
 # Design System: GEOGLOWS Portal
 
 ## 1. Overview
 
-**Creative North Star: "The Field Station"**
+**The portal wears the GEO brand, shared with geoglows.org.**
 
-A clean, well-organized workspace where researchers come to access instruments. The tools and data are the value; the interface is the workbench. Every design choice reduces the distance between the user and their work.
+The portal is not a separate visual identity. `src/styles/tokens.css` and
+`src/styles/fonts.css` are copied byte-for-byte from geoglows.org, so both
+properties resolve to the same surfaces, text colours, accents, and typefaces.
+When the brand changes, it changes in one place and is copied across; keep the
+two files identical rather than editing them here.
 
-The portal serves two modes: anonymous visitors see a scroll-driven landing page with satellite imagery, tool showcases, and scroll-linked animations that present each application with editorial depth. Authenticated users skip directly to a compact app library grid. The transition is seamless; the portal adapts to who you are without asking.
+Because the portal is a Tailwind v4 app and geoglows.org is Astro with plain
+CSS, `src/style.css` bridges the two: it imports the token files as plain CSS,
+then re-exposes them to Tailwind through `@theme inline` so utilities emit
+`var(--surface-page)` rather than a build-time snapshot. That is what lets the
+same tokens flip at runtime.
 
-The visual language is restrained: blue-tinted slate neutrals, one saturated blue accent reserved for interactive elements, and real tool output (maps, charts, satellite photography) providing all the color richness the page needs. The portal frame stays quiet so the data speaks.
+**Key characteristics:**
+- One palette, two properties: GEO Brand Book colours via shared token files
+- Raleway 800 headings, Open Sans body, per the GEO Brand Book
+- Semantic tokens, not palette scales: `bg-page`, `text-ink`, `border-line`
+- Dark mode lives in the token layer, not in `dark:` variants
+- Restrained accents: the tool output and imagery carry the colour
 
-This system explicitly rejects generic SaaS dashboards (too corporate), dense academic data portals (too intimidating), and flashy marketing sites (animation-heavy, scroll-hijacking). GEOGLOWS is a public good, not a product being sold.
+## 2. Colours
 
-**Key Characteristics:**
-- Tool-first: screenshots of real data output carry the visual weight, not decorative elements
-- Scroll-driven storytelling for first-time visitors; direct access for returning users
-- Serif display headings (Playfair Display) for editorial authority; Inter body for UI clarity; monospace ticker for ambient credibility
-- Blue accent reserved for interactive affordances and the manifesto accent; headings and text use dark neutrals
-- Purposeful scroll animations via anime.js with bidirectional enter/leave behavior; respects prefers-reduced-motion
-- 3D perspective transforms on editorial image panels for dimensional depth
+### Semantic roles
+Reach for the role, not the hue. Every one of these flips with the theme:
 
-## 2. Colors: The Workbench Palette
+- **`bg-page`** (`--surface-page`): the page and card surface
+- **`bg-muted` / `bg-alt`**: alternating section bands
+- **`bg-wash` / `bg-teal-wash`**: icon plates, badges, quiet tints
+- **`text-ink`** (`--text-strong`): headings and emphatic copy
+- **`text-body`**: paragraphs and descriptions
+- **`text-faint`**: labels, captions, metadata
+- **`border-line`**: card edges and separators
+- **`text-accent-text`** (`#0a6157`): the AA-safe teal for small text and links
+- **`text-accent-strong`** (GEO blue): stronger links
+- **`bg-action`** (GEO blue): primary buttons
 
-A restrained palette where tinted slate neutrals dominate and the primary blue appears only on actionable elements. The portal's visual richness comes from the tool screenshots and satellite imagery, not from the chrome.
+### Fixed brand hues
+`bg-geo-navy`, `bg-geo-navy-deep`, `bg-geo-teal` do **not** flip. Use them only
+where a hue must hold in both themes: an avatar chip, an always-dark ribbon.
+Text on them uses `text-on-dark` / `text-on-dark-muted`.
 
-### Primary
-- **Workbench Blue** (#2563eb): Buttons, links, focus rings, interactive accent states, and the manifesto accent line. Never on headings or body text (except the manifesto moment). Its restraint is the point.
+There is deliberately no `bg-geo-amber`, `bg-geo-orange`, or `bg-geo-green`
+utility. Amber and orange are off-palette (see below) and the olive
+`--color-green` was demoted from geoglows.org's header in the same decision, so
+exposing them would only invite drift. Add one back if a real need appears.
 
-### Neutral
-- **Canvas** (#f8fafc light / #0f172a dark): Page background. Blue-tinted slate, never pure white or pure black.
-- **Surface** (#ffffff light / rgba(255,255,255,0.03) dark): Card and panel backgrounds.
-- **Ticker** (#1e293b light / #020617 dark): Dark ribbon background for the ambient coordinate ticker.
-- **Text Primary** (#1e293b light / #f1f5f9 dark): Headings and body copy.
-- **Text Secondary** (#475569 light / #94a3b8 dark): Descriptions, supporting text.
-- **Text Muted** (#94a3b8 light / #475569 dark): Labels, captions, metadata, ticker text.
-- **Border** (#e2e8f0 light / rgba(255,255,255,0.1) dark): Card edges, separators.
+### Named rules
 
-### Named Rules
-**The Quiet Chrome Rule.** The portal frame (header, footer, navigation) uses only neutrals and the primary blue on interactive elements. Headings are dark slate, not blue. The tool screenshots and satellite imagery provide all the color the page needs. The single exception is the manifesto moment, where blue carries emotional emphasis.
+**The Role-Not-Hue Rule.** Markup names roles (`bg-page`, `text-ink`), never
+palette scales. There are no `slate-*` or `blue-*` utilities left in the portal,
+and reintroducing one silently opts that element out of theming.
+
+**The Action-Is-Blue Rule.** The primary action is GEO blue (`--action`).
+
+This is a recorded decision, not an inference. geoglows.org commit `af42750`,
+"Realign to the GEO brand: blue-led palette, retire amber", states it directly:
+*"The GEO brand palette is three cool colors (teal #71acb2, blue #0060a9,
+emerald #008b7b); amber/orange are not in it."* That commit moved `CtaButton`'s
+default from `amber` to a new `blue` style, switched every content CTA, moved the
+header button off olive green to GEO blue, and kept amber only on the Impact map
+pins as an intentional highlight.
+
+**Amber and orange are off-palette.** The one surviving use is the focus ring,
+because geoglows.org's `global.css` still draws `:focus-visible` with
+`var(--cta)`. Do not reach for amber or orange for warnings, badges, or
+attention states. When a state needs to stand out from body copy, use the
+teal-wash treatment that `af42750` itself adopted when it demoted the
+`FeatureSection` tag: `--accent-text` on `--surface-teal-wash`. The completion
+and save banners follow exactly that.
+
+Two blue button treatments exist, and they are not interchangeable:
+- **Content CTAs** (`btn-primary`): `CtaButton` base plus `.blue` — 9px radius,
+  weight 800, 0.95rem, 13px/26px padding
+- **The header CTA**: `SiteNav.astro`'s `.cta` — 8px radius, weight 700, 0.9rem.
+  In the portal this is the auth library's sign-in button, retinted in the
+  override block at the end of `src/style.css`
+
+**The Focus-Is-Amber Rule.** `:focus-visible` is a 2px amber outline at 3px
+offset, copied from geoglows.org's `global.css`. Do not add
+`focus-visible:outline-none` without supplying an equally visible amber ring.
+
+**Red is the one exception.** Error banners keep Tailwind's `red-*`. The GEO
+palette has no error hue and geoglows.org has no error state to copy, so this is
+deliberate: error is a system state, not brand chrome. It is the *only* sanctioned
+off-palette colour.
 
 ## 3. Typography
 
-**Display Font:** Playfair Display (with Georgia, serif fallback)
-**Body Font:** Inter (with system sans-serif fallback)
-**Ticker Font:** System monospace (ui-monospace, SFMono-Regular)
+**Display:** Raleway 800, `-0.015em`, self-hosted from `/fonts/raleway.woff2`
+**Body:** Open Sans, self-hosted from `/fonts/opensans.woff2`
 
-**Character:** High-contrast serif headings create editorial authority and institutional credibility. Inter body text stays invisible, letting the content and data carry the reader. Monospace in the ambient ticker creates a "mission control" atmosphere. The pairing says "scientific journal" more than "SaaS product."
+Both are preloaded in `index.html`. They are not fetched from Google Fonts;
+self-hosting is what keeps them identical to geoglows.org.
 
-### Hierarchy
-- **Display** (400, clamp(2rem, 5vw, 4.5rem), line-height 1.1): Hero heading "Global Water Intelligence." Playfair Display at normal weight; the high-contrast letterforms provide enough visual weight without bold.
-- **Manifesto** (400, text-3xl md:text-5xl, line-height 1.15): The typographic statement "Don't just monitor water. Understand it." Playfair Display. Second line uses Workbench Blue for color-split emphasis.
-- **Heading** (400, clamp(1.875rem, 3vw, 2.25rem), line-height 1.2): Section and app names in showcases, "Get started," profile page titles. Playfair Display.
-- **Body** (400-500, 1rem, line-height 1.6): Descriptions, paragraphs. Inter. Max line length capped at max-w-3xl (65ch).
-- **Label** (700, 0.75rem, tracking 0.1em, uppercase): Section eyebrows ("Surface Water," "Coming soon"), feature captions. Inter bold uppercase with wide tracking.
-- **Ticker** (400, 0.75rem, tracking 0.05em): Scrolling coordinate ribbon. System monospace. Slate-400 on slate-800 background.
+A base rule sets `h1`–`h4` to Raleway 800 with the GEO letter-spacing, so
+headings are correct without a utility. `font-display` and `font-sans` exist for
+non-heading elements that need the face explicitly.
 
-### Named Rules
-**The Two-Voice Rule.** Playfair Display speaks in headings and the manifesto (h1, h2, h3, card titles, modal titles, manifesto lines). Inter handles everything else. The monospace ticker is a third voice used exclusively for ambient data decoration; it never appears in content.
+### Named rules
+
+**The Two-Voice Rule.** Raleway carries headings; Open Sans carries everything
+else. Monospace appears only in the ambient ticker.
+
+**Do not weaken a heading.** Raleway at 800 is the brand voice. Adding
+`font-normal` to a heading (a holdover from the retired Playfair system)
+silently drops it to 400.
+
+**The token namespace is `--font-*`.** Tailwind v4 reads `--font-sans` and
+`--font-display`. The retired system declared `--font-family-sans` /
+`--font-family-display`, which generated no utilities at all, so `font-display`
+was inert for months and Open Sans never applied to the body. Verify a font
+token by checking the built CSS, not the markup.
 
 ## 4. Elevation
 
-Flat by default. Shadows appear as a response to state (hover, modal elevation), never as resting decoration. Dark mode uses borders instead of shadows for layering. 3D perspective transforms add dimensional depth to editorial image compositions.
+Flat by default, borders before shadows. `--shadow-sm` and `--shadow-md` come
+from the token file, so the portal's `shadow-sm` and `shadow-md` are GEO's
+shadows, not Tailwind's defaults.
 
-### Shadow Vocabulary
-- **Resting card** (`0 4px 6px -1px rgba(0,0,0,0.05)`): Subtle depth on glass-card elements at rest. Light mode only.
-- **Hover card** (`0 20px 25px -5px rgba(59,130,246,0.1)`): Blue-tinted glow on card hover. Signals interactivity.
-- **Modal** (`0 25px 50px -12px rgba(0,0,0,0.25)`): High elevation for dialogs and the sign-in modal.
-- **Editorial overlap** (`shadow-xl`): Used on the GRACE map image when overlapping the HydroSOS map. Creates depth in the layered editorial composition.
-
-### Perspective Panels
-Editorial image panels use CSS 3D perspective transforms (`perspective(1200px) rotateY(±3deg)`) to create dimensional depth. The HydroSOS map tilts slightly right; the GRACE map tilts slightly left. Hover flattens to 0deg with a 0.5s ease-out-expo transition. Desktop only (`min-width: 768px`); disabled on mobile and under prefers-reduced-motion.
-
-### Named Rules
-**The Flat-By-Default Rule.** Surfaces are flat at rest. Shadows appear only as a response to state (hover, focus, modal elevation) or in editorial compositions where images overlap intentionally. Perspective transforms are reserved for the editorial image bridge, never on UI components.
+Cards rest with a hairline border plus `--shadow-sm`, and on hover lift 3px,
+deepen to `--shadow-md`, and take an `--accent-text` border. That is
+geoglows.org's `ToolCard` treatment.
 
 ## 5. Components
 
-### Ambient Ticker
-A full-width dark ribbon (`bg-slate-800`) scrolling continuously with global river station coordinates (Zurich, São Paulo, Tokyo, Cairo) interspersed with data stats ("7M+ RIVER REACHES", "DAILY FORECASTS"). Monospace font, slate-400 text. CSS `translateX` animation at 30s linear infinite. Creates a "mission control" atmosphere. Hidden from screen readers (`aria-hidden="true"`). Disabled under prefers-reduced-motion.
-
-### Header
-Top-center layout. GEOGLOWS droplet icon + wordmark centered. Full-width with backdrop blur (bg-white/80 light, bg-slate-950/80 dark). Bottom border separator. Padding: py-8 mobile, py-20 desktop.
-
-**Responsive:** On mobile, nav links flow below the logo in the normal document flow. On desktop (`md:`), nav is absolute-positioned top-right. This prevents the nav from overlapping the centered logo on narrow screens.
-
-### Hero Bridge (anonymous visitors only)
-Satellite photograph (aerial braided river delta) spanning full content width at 60vh mobile / 80vh desktop. Dark gradient overlay (bottom-to-top, from-slate-900/80) carries the GEOGLOWS mission tagline in Playfair Display and supporting stats in Inter. Scales in on scroll via anime.js. Rounded-2xl container.
-
-Below: two editorial images (HydroSOS global map + GRACE groundwater map). Both in 16:9 aspect-ratio containers with object-cover. Labels below each image in muted uppercase.
-
-**Responsive:** On desktop, images overlap editorially (HydroSOS at 82% width, GRACE at 55% overlapping bottom-right with `-mt-24`) with 3D perspective transforms (rotateY ±3deg). On mobile, images stack vertically at full width with normal spacing (`mt-4`), no overlap, no perspective transforms.
-
-### Manifesto Moment
-A centered typographic statement between the editorial images and the app showcases. Two lines in Playfair Display: first line in dark slate, second line in Workbench Blue. Scales in on scroll. The color split creates a punchy moment that breaks the neutral pattern deliberately.
-
-**Responsive:** text-2xl on mobile, text-5xl on desktop. Padding: py-12 mobile, py-24 desktop.
-
-### App Showcases
-Alternating layout: images left / text right, then reversed. anime.js directional slide animations matching the layout direction. Bidirectional: animations reverse when scrolling back up.
-
-Text block: icon + category label, Playfair Display heading (text-2xl mobile, text-4xl desktop), Inter description, blue "Open [App]" link.
-
-**Responsive:** On desktop, sections use `min-h-[80vh]` with flex centering and side-by-side layout. On mobile, sections flow at content height with stacked layout (images above text). Showcase images use `aspect-[4/3]` crop with `object-cover` on mobile for visual substance; natural aspect ratio on desktop. Text is always left-aligned on mobile regardless of alternation direction.
-
-### Coming Soon Section
-Same alternating showcase layout. Amber "Coming soon" pill (bg-amber-100, text-amber-700) replaces the icon + category label. No link (app not yet available).
-
-### App Cards (Get Started section / authenticated view)
-Glass-card style in a 2-column responsive grid. Each card: icon container (blue-50 bg, rounded-xl), Playfair Display title, Inter description, plain-text tags at bottom. Hover: arrow-up-right icon reveals, border tints blue, blue-tinted box-shadow appears. Cascade animation with stagger on scroll.
-
 ### Buttons
-- **Primary:** Workbench Blue (#2563eb) background, white text, rounded-xl (0.75rem), px-4 py-2, Inter semibold. Hover: blue-700. Disabled: opacity-60. Focus-visible: 2px blue ring with offset.
-- **Secondary:** White background (dark: slate-900), slate-700 text, slate-300 border, rounded-xl. Hover: slate-50 background.
-- **Minimum touch target:** 44px height on all interactive buttons (min-h-[44px]).
+- **`btn-primary`**: GEO blue, white text, 8px radius, weight 700, 44px min
+  height, mirroring `SiteNav.astro`'s `.cta`
+- **`btn-secondary`**: page surface, hairline border, teal border on hover
 
-### Modals
-Native `<dialog>` element. Fixed center positioning with explicit translate (UA centering unreliable under Tailwind preflight). Max-w-2xl (sign-in: max-w-28rem), max-h-90vh. Rounded-2xl. Backdrop: slate-900/60 with backdrop-blur-sm. Playfair Display title.
+### `tool-card`
+Page surface, hairline border, 12px radius, `--shadow-sm`. Hover lifts and tints
+the border teal. Ported from geoglows.org's `ToolCard.astro`. Replaces the
+retired `glass-card`; there is no glassmorphism in this system.
 
-### Footer
-Theme-aware GEOGLOWS logo (color for light, white for dark) at w-72. Tagline, pill-style external links (geoglows.org, Training). Contributors and sponsors as plain text. Copyright line with top border separator. Spacing: mt-16 pt-10 pb-8.
+### `tool-badge`
+Teal-wash pill with `--accent-text` text, for "Coming soon" and similar states.
+Matches `ToolCard`'s `.badge`.
 
-### Profile Page
-Save success banner: emerald-50 background with emerald-700 text, auto-dismisses after 3 seconds. Completion banner: amber accent matching the Coming Soon treatment. View mode: Playfair Display name heading, 2-column field grid. Edit mode: labeled inputs (name parts, user type, personal link), Inter semibold field labels in uppercase.
+### Layout primitives
+Ported from geoglows.org's `global.css`, and the only sanctioned way to set
+width and vertical rhythm:
+- **`shell`**: 1200px column with a 28px gutter, from `--page-max` / `--gutter`
+- **`block-y`**: section rhythm, `clamp(44px, 5vw, 76px)`
+- **`eyebrow`**: uppercase teal section label at 0.15em tracking
+- **`section-title`**: `clamp(1.6rem, 2.6vw, 2.3rem)` at `-0.02em`, from
+  `SectionHeader.astro`
 
-### Disclaimer Modal
-"Before you begin" heading in Playfair Display. GEOGLOWS branding (droplet + wordmark). Four grouped legal sections with h3 subheadings. Custom scrollbar styling. Branded shell (water-mesh gradient at 30% opacity) visible behind the modal.
+Do not hand-roll `max-w-*` + `px-*` on a section, and do not invent one-off
+`py-*` values. Both are how the two properties drift apart.
 
-## 6. Do's and Don'ts
+### Site nav
+Ported from `SiteNav.astro`: sticky, `z-index: 60`, 88% page-surface with a 12px
+backdrop blur and a hairline bottom border. Full GEOGLOWS wordmark left at 38px,
+links right at weight 700 / 0.9rem going teal on hover, then the blue CTA. Below
+880px the links collapse behind a 44px hamburger that toggles `data-open` on
+`.site-nav`, with the CTA ordered ahead of it.
+
+The portal has flat routes, so `SiteNav`'s dropdown submenu machinery
+(`.group`, `.submenu`, `.group-toggle`) is deliberately not ported. Add it only
+if the portal grows sub-sections.
+
+### Site footer
+Ported from `SiteFooter.astro`: an always-dark `--color-navy-deep` band in both
+themes, `1.4fr 1fr 1fr 1fr` grid collapsing to two columns at 820px, white
+wordmark at 34px, blurb capped at 34ch, uppercase column headings at 0.08em, and
+a `--hairline-on-dark` divider above a copyright-left / legal-right row.
+
+Its link columns are portal-specific and point at geoglows.org for everything
+the portal does not host, including the legal pages, which the portal has none of.
+
+### `water-mesh`
+Ambient three-point radial wash retinted to GEO teal / blue / teal-green. Now
+used only on the branded shell behind the disclaimer modal; the page itself sits
+on the flat page surface, as geoglows.org does.
+
+### Auth surfaces (not ours)
+The sign-in button, sign-in modal, and account menu are rendered by
+`@geoglows/geoglows-auth`, which ships a minified stylesheet with **no custom
+properties** — hardcoded `#2563eb` and Playfair Display. `src/style.css` ends
+with a scoped override block that retints its accent and display font onto GEO
+tokens. Those selectors are `:root`-prefixed because the library's CSS is
+bundled after ours and would otherwise win on source order.
+
+The library's neutral surfaces are left alone: it already scopes dark rules as
+`:is([data-theme=dark], .dark)`, so it themes correctly, and its neutrals sit
+close to GEO's. **The durable fix is to expose tokens in `geoglows-auth`
+itself** and delete the override block. Until then, the block must track the
+library's class names across upgrades.
+
+## 6. Theming mechanics
+
+**There is no theme toggle.** Dark mode is pure CSS, driven by
+`prefers-color-scheme` through the token layer, exactly as on geoglows.org.
+Nothing stamps `data-theme` at runtime; `theme.js` and the inline stamping script
+are gone. `[data-theme="light" | "dark"]` remains as an override hook in
+`tokens.css` for anyone who later wants to force a theme.
+
+Consequently **no markup needs a `dark:` variant.** Every colour in the app,
+error states included, comes from a token that flips on its own, and the logo
+swap uses the same `.logo-light` / `.logo-dark` CSS that `SiteNav.astro` uses.
+The `dark:` variant is still *defined* — correctly, covering both
+`prefers-color-scheme` and `[data-theme="dark"]` — but nothing uses it. If you
+find yourself reaching for it, you want a token instead.
+
+### Scroll reveal
+`src/reveal.js` is a port of geoglows.org's `reveal.ts`: an IntersectionObserver
+adds `.is-visible` to each `.reveal` once it enters the viewport, at
+`rootMargin: 0px 0px -12% 0px`, and then unobserves it. Sections reveal once and
+are never hidden again. Under `prefers-reduced-motion` or without
+IntersectionObserver, everything is marked visible immediately.
+
+The one portal-specific wrinkle: `#app.innerHTML` is replaced on every render, so
+every `.reveal` node is new afterwards. `initReveal()` is therefore called from
+`renderApp()` and disconnects the previous observer first, which would otherwise
+hold detached nodes.
+
+The retired anime.js engine did the opposite: four animation kinds, bidirectional
+reversal on scroll-up, and a `createScope().revert()` dance after every render.
+It is gone, along with the dependency.
+
+`@source not "../docs"` and `@source not "../.agents"` keep Tailwind from
+scanning prose. Design docs quote class names, and without the exclusions the
+retired `slate-*` and `blue-*` utilities are emitted into the production build
+purely because this file mentions them.
+
+## 7. Do's and Don'ts
 
 ### Do:
-- **Do** use Playfair Display for headings and the manifesto moment. Inter for body and UI. Monospace for the ticker only.
-- **Do** reserve blue-600 for interactive elements (buttons, links, focus rings) and the manifesto accent. Headings use dark slate.
-- **Do** use real tool output (screenshots, satellite imagery) as the primary visual content. The data IS the design.
-- **Do** use the ambient ticker to create a "mission control" atmosphere with real coordinate data.
-- **Do** use 3D perspective transforms on editorial image panels for dimensional depth. Flatten on hover.
-- **Do** respect prefers-reduced-motion: disable all anime.js animations, CSS ticker scrolling, and perspective transforms.
-- **Do** use focus-visible rings (2px, blue-500) on every interactive element for keyboard accessibility.
-- **Do** use native `<dialog>` for modals with explicit Tailwind centering (fixed top-1/2 left-1/2 -translate).
-- **Do** use `escapeHtml()` on every user-controlled interpolation in innerHTML templates.
-- **Do** provide min-h-[44px] on all buttons and interactive targets for touch accessibility.
-- **Do** use `aria-hidden="true"` on decorative elements (ticker, icons) that would confuse screen readers.
-- **Do** show a success banner after profile save (auto-dismiss after 3s).
+- **Do** name a role: `bg-page`, `text-ink`, `border-line`, `text-faint`
+- **Do** keep `src/styles/tokens.css` and `fonts.css` byte-identical to geoglows.org
+- **Do** let the token layer handle dark mode
+- **Do** use `text-on-dark` / `text-on-dark-muted` on fixed-hue dark surfaces
+- **Do** use `btn-primary` / `btn-secondary` instead of respelling a button
+- **Do** verify a new token by grepping the built CSS in `dist/assets/`
+- **Do** respect `prefers-reduced-motion` on every transition and animation
+- **Do** keep the amber focus ring visible on every interactive element
+- **Do** run `escapeHtml()` on every user-controlled interpolation
 
 ### Don't:
-- **Don't** use gradient text (background-clip: text). Use a single solid color; emphasis through weight or size.
-- **Don't** use border-left or border-right greater than 1px as colored accents on cards or list items.
-- **Don't** use glassmorphism decoratively. Backdrop blur is purposeful (header nav, modal backdrop) or nothing.
-- **Don't** use big-number hero-metric templates (SaaS cliché). GEOGLOWS is a public good, not a product being sold.
-- **Don't** use animation-heavy scroll-hijacking (controls scroll position or velocity). Animations reveal content on scroll but never take control of the scrollbar.
-- **Don't** mimic generic SaaS dashboards (too corporate and transactional for an open science platform).
-- **Don't** mimic dense academic data portals (intimidating, buried navigation, walls of controls).
-- **Don't** use Inter for headings. It's the default AI-generated-UI font and communicates "template."
-- **Don't** animate CSS layout properties. Use transform and opacity only.
-- **Don't** use em dashes. Use commas, colons, semicolons, periods, or parentheses.
-- **Don't** use perspective transforms on UI components (buttons, cards, inputs). Reserved for editorial image compositions only.
+- **Don't** introduce `slate-*`, `blue-*`, `cyan-*`, `indigo-*`, or `sky-*` utilities
+- **Don't** pair `bg-x dark:bg-y` where a token already flips
+- **Don't** add `font-normal` to a heading
+- **Don't** edit the token files to make one page look right; fix the usage
+- **Don't** use Playfair Display, `glass-card`, or gradient text; all retired
+- **Don't** use amber or orange for anything but the focus ring; they are
+  off-palette per geoglows.org `af42750`
+- **Don't** hand-roll section width or padding; use `shell` and `block-y`
+- **Don't** add a `dark:` variant; every colour already flips on its own
+- **Don't** reintroduce a theme toggle without deciding what geoglows.org does first
+- **Don't** use gradient text (`background-clip: text`)
+- **Don't** use glassmorphism decoratively; backdrop blur is purposeful or absent
+- **Don't** use big-number hero-metric templates. GEOGLOWS is a public good
+- **Don't** hijack the scrollbar
+- **Don't** animate layout properties; use `transform` and `opacity`
+- **Don't** use em dashes
+
+## 8. Retired, and what remains of it
+
+The previous system ("The Field Station": Playfair Display, `#2563eb`, slate
+neutrals) is gone. Two notes for anyone reading older docs:
+
+- `docs/designs/*.md` still describe the retired palette. They are excluded from
+  the Tailwind scan but were not rewritten.
+- `renderLandingPage_old()` **has been deleted**, along with `APP_SHOWCASE`,
+  `createAppShowcase()`, and the anime.js engine. It was dead code holding the
+  ambient ticker, the satellite hero, the 3D perspective panels, and the
+  alternating app showcases that earlier versions of this document described as
+  live. Nothing called it. `landingPage.js` went from 399 lines to 97, and the
+  ticker and `.perspective-panel` CSS went with it. The screenshots in
+  `/showcase/` that only it referenced are still in `public/`.

@@ -21,7 +21,6 @@
   "dependencies": {
     "@geoglows/geoglows-auth": "github:geoglows/geoglows-auth#v1.7.2",
     "@vercel/analytics": "^2.0.1",
-    "@vercel/speed-insights": "^2.0.0",
-    "animejs": "^4.4.1"
+    "@vercel/speed-insights": "^2.0.0"
   }
 }
