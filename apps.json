@@ -72,20 +72,6 @@
           "repository": "geoglows/webapp-rfs-v3"
         },
         {
-          "name": "RFS Hydrography Explorer (Preview)",
-          "description": "Subset hydrography to an AOI and download as GeoParquet. Experiment with styling and filtering choices.",
-          "tags": [
-            "RFS",
-            "Hydrography",
-            "Subsetting",
-            "GeoParquet"
-          ],
-          "icon": "heroicon:map",
-          "accent": "cyan",
-          "path": "/rfs-hydrography",
-          "repository": "geoglows/webapp-rfs-hydrography"
-        },
-        {
           "name": "Flood Early Warnings for All (Preview)",
           "description": "Compare early warning systems for floods worldwide with data from national, regional, and global hydrology models.",
           "tags": [

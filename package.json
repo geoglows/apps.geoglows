@@ -12,10 +12,10 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",
     "tailwindcss": "^4.1.18",
-    "vite": "^8.1.4"
+    "vite": "^8.2.2"
   },
   "dependencies": {
-    "@geoglows/geoglows-auth": "github:geoglows/geoglows-auth#v1.7.2",
+    "@geoglows/geoglows-auth": "github:geoglows/geoglows-auth#v1.7.4",
     "heroicons": "^2.2.0"
   }
 }
