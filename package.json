@@ -15,7 +15,7 @@
     "vite": "^8.2.2"
   },
   "dependencies": {
-    "@geoglows/geoglows-auth": "github:geoglows/geoglows-auth#v1.7.4",
+    "@geoglows/geoglows-auth": "github:geoglows/geoglows-auth#v1.8.0",
     "heroicons": "^2.2.0"
   }
 }
