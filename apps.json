@@ -46,8 +46,8 @@
             "GRACE",
             "GLDAS"
           ],
-          "icon": "heroicon:scale",
-          "accent": "violet",
+          "icon": "calcite:satellite-3",
+          "accent": "orange",
           "path": "/grace-anomalies",
           "repository": "geoglows/webapp-grace-groundwater"
         }

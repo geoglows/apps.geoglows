@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GEOGLOWS Apps</title>
   <meta name="description" content="Access open water intelligence tools for river forecasting, groundwater monitoring, and water sustainability research."/>
-  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)"/>
-  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)"/>
+  <meta name="theme-color" content="#fbfdfd" media="(prefers-color-scheme: light)"/>
+  <meta name="theme-color" content="#111a26" media="(prefers-color-scheme: dark)"/>
 
   <!-- Open Graph -->
   <meta property="og:title" content="GEOGLOWS | Global Water Intelligence"/>
@@ -17,7 +17,7 @@
   <link rel="icon" type="image/png" href="/favicon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/src/style.css"/>
 
   <script>
@@ -37,55 +37,54 @@
 <body>
 <div class="min-h-screen text-slate-800 dark:text-slate-200 water-mesh flex flex-col">
 
-  <nav class="w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-white/5 py-8 md:py-12">
-    <div class="max-w-7xl mx-auto px-6 flex flex-col items-center text-center relative">
-      <div class="w-full flex justify-end mb-4 md:mb-0 md:absolute md:right-6 md:top-0">
-        <div class="flex items-center gap-3">
-          <div id="authActionSlot"></div>
-          <button id="theme-toggle" aria-label="Toggle theme"
-                  class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
-            <!-- Filled in from the icon set by src/icons.js; both are in the
-                 markup and swapped by CSS, so the theme never flashes. -->
-            <span data-icon="heroicon:moon" data-icon-size="20" class="dark:hidden"></span>
-            <span data-icon="heroicon:sun" data-icon-size="20" class="hidden dark:block"></span>
-          </button>
-        </div>
-      </div>
-
+  <!-- Slim sticky bar, matching the header on geoglows.org: wordmark left,
+       account and theme controls right. -->
+  <nav class="sticky top-0 w-full z-50 bg-slate-50/85 dark:bg-slate-950/85 backdrop-blur-xl border-b border-slate-200 dark:border-white/5">
+    <div class="max-w-[88rem] mx-auto px-6 py-3 flex items-center justify-between gap-4">
       <!-- The two logo files carry different amounts of transparent padding, so
            they are sized by width inside a fixed-height, clipped box. That puts
            both wordmarks at the same size and baseline across themes. -->
-      <div class="flex h-20 items-center justify-center overflow-hidden mb-6">
-        <img src="/geoglows-logo.png" alt="GEOGLOWS" class="w-72 max-w-full dark:hidden"/>
-        <img src="/geoglows-logo-white.png" alt="GEOGLOWS" class="w-72 max-w-full hidden dark:block"/>
+      <a href="/" class="flex h-10 items-center overflow-hidden hover:opacity-80 transition-opacity">
+        <img src="/geoglows-logo.png" alt="GEOGLOWS" class="w-44 max-w-full dark:hidden"/>
+        <img src="/geoglows-logo-white.png" alt="GEOGLOWS" class="w-44 max-w-full hidden dark:block"/>
+      </a>
+      <div class="flex items-center gap-3">
+        <div id="authActionSlot"></div>
+        <button id="theme-toggle" aria-label="Toggle theme"
+                class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
+          <!-- Filled in from the icon set by src/icons.js; both are in the
+               markup and swapped by CSS, so the theme never flashes. -->
+          <span data-icon="heroicon:moon" data-icon-size="20" class="dark:hidden"></span>
+          <span data-icon="heroicon:sun" data-icon-size="20" class="hidden dark:block"></span>
+        </button>
       </div>
-
-      <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 leading-tight">
-        <span class="gradient-text">Global Water Intelligence</span>
-      </h1>
-
-      <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto font-medium leading-relaxed">
-        Empowering individuals and organizations to solve local water challenges with global water intelligence.
-      </p>
     </div>
   </nav>
+
+  <header class="max-w-[88rem] mx-auto px-6 pt-8 pb-6 md:pt-10 md:pb-8 w-full text-center">
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-5 leading-tight">
+      <span class="gradient-text">Global Water Intelligence</span>
+    </h1>
+
+    <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-5xl mx-auto leading-relaxed">
+      These apps connect users to local water conditions based on global data sources.<br>For webinars, workshops, tutorials, and more, visit
+      <a href="https://training.geoglows.org" class="text-blue-600 dark:text-sky-400 hover:underline">training.geoglows.org</a>.
+    </p>
+  </header>
 
   <!-- The app library is generated at runtime from apps.json by
        src/appLibrary.js. Edit that config to add/remove/regroup apps or change
        how many "coming soon" placeholders each group shows. -->
-  <main id="appLibrary" class="max-w-7xl mx-auto px-6 py-10 grow w-full"></main>
+  <main id="appLibrary" class="max-w-[88rem] mx-auto px-6 pb-16 grow w-full"></main>
 
-  <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-16 px-4 bg-white/50 dark:bg-transparent">
-    <div class="max-w-6xl mx-auto text-center">
-      <div class="border-slate-200 dark:border-slate-900 text-slate-500 dark:text-slate-300 text-xs">
-        <p>
-          &copy; 2026 GEOGLOWS
-          <span aria-hidden="true" class="mx-2">&middot;</span>
-          <a href="/terms" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Terms &amp; Conditions</a>
-          <span aria-hidden="true" class="mx-2">&middot;</span>
-          <a href="/licenses" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Open Source Licenses</a>
-        </p>
-      </div>
+  <footer class="geo-footer mt-20 py-10 px-6">
+    <div class="max-w-[88rem] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-base">
+      <span>&copy; 2026 GEOGLOWS &middot; A Group on Earth Observations initiative.</span>
+      <span class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a href="https://geoglows.org">geoglows.org</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/licenses">Open Source Licenses</a>
+      </span>
     </div>
   </footer>
 

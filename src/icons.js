@@ -5,6 +5,11 @@ import globeEuropeAfrica from "heroicons/24/outline/globe-europe-africa.svg?raw"
 
 export const heroicon = (raw) => (attrs) => raw.replace(/^<svg/, `<svg ${attrs}`);
 
+// Calcite icons are filled paths with no fill on the root <svg>, so they would
+// otherwise paint black instead of following the accent color. They are also
+// drawn per size, so import the file matching the size it renders at.
+export const calcite = (raw) => (attrs) => raw.replace(/^<svg/, `<svg ${attrs} fill="currentColor"`);
+
 const ICONS = {};
 
 export function register(icons) {

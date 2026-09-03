@@ -2,57 +2,222 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ---------------------------------------------------------------------------
+   GEO / GEOGLOWS brand theme.
+
+   Colors, type, radii and shadows are taken from geoglows.org so the portal
+   reads as the same product as the main site. The GEO core marks are the two
+   overlapping circles of the logo: teal-green #008b7b and blue #0060a9.
+
+   The Tailwind color ramps below are *remapped* rather than replaced with new
+   names. Every page already styles itself with blue/teal/slate utilities, so
+   re-pointing the ramps rebrands the whole site without touching the markup.
+     blue    -> GEO blue          teal    -> GEO teal-green
+     cyan    -> GEO teal          sky     -> GEO light blue
+     emerald -> GEO green         amber   -> GEO amber
+     orange  -> GEO orange        indigo/violet -> GEO navy
+     slate   -> GEO neutrals (navy-tinted greys)
+--------------------------------------------------------------------------- */
+
 @theme {
-    --font-sans: 'Inter', sans-serif;
-    /* Light slate palette */
-    --color-slate-50: #f8fafc;
-    --color-slate-100: #f1f5f9;
-    --color-slate-200: #e2e8f0;
-    --color-slate-300: #cbd5e1;
-    --color-slate-400: #94a3b8;
-    --color-slate-500: #64748b;
-    --color-slate-600: #475569;
-    --color-slate-700: #334155;
-    --color-slate-800: #1e293b;
-    --color-slate-900: #0f172a;
+    --font-sans: 'Open Sans', 'Segoe UI', system-ui, sans-serif;
+    --font-display: 'Raleway', 'Open Sans', system-ui, sans-serif;
 
-    /* Vibrant blue palette */
-    --color-blue-50: #eff6ff;
-    --color-blue-100: #dbeafe;
-    --color-blue-200: #bfdbfe;
-    --color-blue-400: #60a5fa;
-    --color-blue-500: #3b82f6;
-    --color-blue-600: #2563eb;
-    --color-blue-700: #1d4ed8;
+    /* GEO neutrals. Light steps are the site surfaces, dark steps are both the
+       dark-mode surfaces and the light-mode heading ink. */
+    --color-slate-50: #fbfdfd;
+    --color-slate-100: #eef1f4;
+    --color-slate-200: #dbe2e7;
+    --color-slate-300: #cbd4db;
+    --color-slate-400: #93a3ae;
+    --color-slate-500: #708491;
+    --color-slate-600: #55555a;
+    --color-slate-700: #3d4650;
+    --color-slate-800: #202b36;
+    --color-slate-900: #17222f;
+    --color-slate-950: #111a26;
 
-    /* Accent colors */
-    --color-cyan-400: #22d3ee;
-    --color-cyan-500: #06b6d4;
-    --color-indigo-400: #818cf8;
-    --color-indigo-500: #6366f1;
-    --color-sky-400: #38bdf8;
-    --color-sky-500: #0ea5e9;
+    /* GEO blue #0060a9 */
+    --color-blue-50: #eaf3fa;
+    --color-blue-100: #d2e6f5;
+    --color-blue-200: #a6ccea;
+    --color-blue-300: #6fabd9;
+    --color-blue-400: #3b87c4;
+    --color-blue-500: #0f6fb4;
+    --color-blue-600: #0060a9;
+    --color-blue-700: #00518f;
+    --color-blue-800: #044176;
+    --color-blue-900: #0a3459;
+    --color-blue-950: #072438;
+
+    /* GEO teal-green #008b7b */
+    --color-teal-50: #e9f5f2;
+    --color-teal-100: #d0ece7;
+    --color-teal-200: #a8ddd4;
+    --color-teal-300: #71c6b8;
+    --color-teal-400: #37b0a0;
+    --color-teal-500: #009b89;
+    --color-teal-600: #008b7b;
+    --color-teal-700: #0a6157;
+    --color-teal-800: #0c4d46;
+    --color-teal-900: #0d3b36;
+    --color-teal-950: #072522;
+
+    /* GEO teal #71acb2 */
+    --color-cyan-50: #edf5f6;
+    --color-cyan-100: #d8e9eb;
+    --color-cyan-200: #b7d6da;
+    --color-cyan-300: #92c2c8;
+    --color-cyan-400: #71acb2;
+    --color-cyan-500: #58969d;
+    --color-cyan-600: #467b82;
+    --color-cyan-700: #3a6268;
+    --color-cyan-800: #2f4e53;
+    --color-cyan-900: #273e42;
+    --color-cyan-950: #17282b;
+
+    /* GEO light blue — the dark-mode accent on geoglows.org */
+    --color-sky-50: #eaf6fb;
+    --color-sky-100: #d3ecf6;
+    --color-sky-200: #a9d8ec;
+    --color-sky-300: #7cc2df;
+    --color-sky-400: #4fb7d8;
+    --color-sky-500: #2f9dc2;
+    --color-sky-600: #217ea1;
+    --color-sky-700: #1c6682;
+    --color-sky-800: #1a5369;
+    --color-sky-900: #194557;
+    --color-sky-950: #0f2c39;
+
+    /* GEO green #587246 */
+    --color-emerald-50: #f0f3ec;
+    --color-emerald-100: #dee5d6;
+    --color-emerald-200: #bfcbb0;
+    --color-emerald-300: #9cad88;
+    --color-emerald-400: #7b8f66;
+    --color-emerald-500: #62794d;
+    --color-emerald-600: #587246;
+    --color-emerald-700: #4b5f3a;
+    --color-emerald-800: #3d4d30;
+    --color-emerald-900: #333f28;
+    --color-emerald-950: #1d2517;
+
+    /* GEO amber #ffbf00 — the brand's call-to-action colour */
+    --color-amber-50: #fff9e6;
+    --color-amber-100: #fff1bf;
+    --color-amber-200: #ffe485;
+    --color-amber-300: #ffd44a;
+    --color-amber-400: #ffc61f;
+    --color-amber-500: #ffbf00;
+    --color-amber-600: #d99f00;
+    --color-amber-700: #a87b00;
+    --color-amber-800: #7d5c02;
+    --color-amber-900: #5c4405;
+    --color-amber-950: #3a2a06;
+
+    /* GEO orange #f47920 */
+    --color-orange-50: #fef3ea;
+    --color-orange-100: #fde2cc;
+    --color-orange-200: #fbc199;
+    --color-orange-300: #f89f66;
+    --color-orange-400: #f68a3f;
+    --color-orange-500: #f47920;
+    --color-orange-600: #d4620f;
+    --color-orange-700: #ab4d0d;
+    --color-orange-800: #833d0e;
+    --color-orange-900: #6a3310;
+    --color-orange-950: #3a1a06;
+
+    /* GEO navy #243754 */
+    --color-indigo-50: #eef1f6;
+    --color-indigo-100: #dbe1ec;
+    --color-indigo-200: #b8c3d7;
+    --color-indigo-300: #8d9dbb;
+    --color-indigo-400: #63789d;
+    --color-indigo-500: #445a80;
+    --color-indigo-600: #33486a;
+    --color-indigo-700: #243754;
+    --color-indigo-800: #1e2d45;
+    --color-indigo-900: #1a2639;
+    --color-indigo-950: #111a26;
+
+    --color-violet-50: #eef1f6;
+    --color-violet-100: #dbe1ec;
+    --color-violet-200: #b8c3d7;
+    --color-violet-300: #8d9dbb;
+    --color-violet-400: #63789d;
+    --color-violet-500: #445a80;
+    --color-violet-600: #33486a;
+    --color-violet-700: #243754;
+    --color-violet-800: #1e2d45;
+    --color-violet-900: #1a2639;
+    --color-violet-950: #111a26;
+
+    /* GEO uses a single 12px corner. rounded-2xl is the card radius on this
+       site, so the scale is pulled in to land there. */
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.625rem;
+    --radius-2xl: 0.75rem;
+
+    --shadow-sm: 0 1px 2px #1d1d240f, 0 4px 14px #1d1d240f;
+    --shadow-md: 0 2px 6px #1d1d2414, 0 16px 40px #1d1d241a;
+}
+
+/* Semantic tokens, named as on geoglows.org. Used by the component classes
+   below and available to any page that needs a brand colour directly. */
+:root {
+    --geo-blue: var(--color-blue-600);
+    --geo-teal-green: var(--color-teal-600);
+    --geo-teal: var(--color-cyan-400);
+    --geo-navy: #243754;
+    --geo-navy-deep: #1d1d24;
+    --geo-amber: var(--color-amber-500);
+
+    --surface-page: var(--color-slate-50);
+    --surface-card: #ffffff;
+    --surface-muted: var(--color-slate-100);
+    --border: var(--color-slate-200);
+    --text-strong: var(--color-slate-800);
+    --text-body: var(--color-slate-600);
+    --accent: var(--color-teal-600);
+    --accent-text: var(--color-teal-700);
+    --accent-strong: var(--color-blue-600);
+    --ink-on-dark: #eaf2f7;
+    --ink-on-dark-muted: #a6bccb;
+    --hairline-on-dark: #e9f0f626;
+}
+
+.dark {
+    --surface-page: var(--color-slate-950);
+    --surface-card: var(--color-slate-900);
+    --surface-muted: #1c2837;
+    --border: #26343d;
+    --text-strong: #e8eef3;
+    --text-body: #aabac2;
+    --accent: #4fb3a4;
+    --accent-text: #6fd0c0;
+    --accent-strong: var(--color-sky-400);
 }
 
 html {
-    background-color: var(--color-slate-50);
-}
-
-html.dark {
-    background-color: var(--color-slate-900);
+    background-color: var(--surface-page);
 }
 
 body {
-    background-color: var(--color-slate-50);
+    background-color: var(--surface-page);
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
 }
 
-.dark body {
-    background-color: var(--color-slate-900);
+/* Raleway carries the headings on geoglows.org; Open Sans carries body copy. */
+h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
 }
 
 ::selection {
-    background-color: var(--color-blue-500);
+    background-color: var(--geo-blue);
     color: white;
 }
 
@@ -63,58 +228,72 @@ body {
 }
 
 .glass-card {
-    background: white;
-    border: 1px solid var(--color-slate-200);
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dark .glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    border-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .glass-card:hover {
-    border-color: var(--color-blue-300);
-    box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 8px 10px -6px rgba(59, 130, 246, 0.1);
-    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
 }
 
 .dark .glass-card:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(59, 130, 246, 0.5);
+    border-color: var(--accent);
     box-shadow: none;
 }
 
+/* Blue to teal-green: the two GEO logo colours, in logo order. */
 .gradient-text {
-    background: linear-gradient(135deg, var(--color-blue-600) 0%, var(--color-cyan-500) 50%, var(--color-blue-500) 100%);
+    background: linear-gradient(100deg, var(--color-blue-600) 0%, var(--color-teal-600) 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
     padding-right: 0.05em;
     padding-bottom: 0.05em;
 }
 
 .dark .gradient-text {
-    background: linear-gradient(to right, #ffffff 0%, var(--color-blue-500) 100%);
+    background: linear-gradient(100deg, var(--color-sky-400) 0%, var(--color-teal-400) 100%);
     -webkit-background-clip: text;
     background-clip: text;
 }
 
+/* A very light wash of the brand colours over the page surface. Kept subtle so
+   cards and body copy stay the focus, as on geoglows.org. */
 .water-mesh {
-    background-color: var(--color-slate-50);
-    background-image: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.15) 0, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(99, 102, 241, 0.1) 0, transparent 50%);
+    background-color: var(--surface-page);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(0, 96, 169, 0.10) 0, transparent 55%),
+        radial-gradient(at 100% 0%, rgba(0, 139, 123, 0.10) 0, transparent 55%),
+        radial-gradient(at 50% 100%, rgba(113, 172, 178, 0.10) 0, transparent 55%);
 }
 
 .dark .water-mesh {
-    background-color: var(--color-slate-900);
-    background-image: radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.3) 0, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(29, 78, 216, 0.3) 0, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(30, 64, 175, 0.2) 0, transparent 50%);
+    background-color: var(--surface-page);
+    background-image:
+        radial-gradient(at 0% 0%, rgba(0, 96, 169, 0.28) 0, transparent 55%),
+        radial-gradient(at 100% 0%, rgba(0, 139, 123, 0.18) 0, transparent 55%),
+        radial-gradient(at 50% 100%, rgba(36, 55, 84, 0.35) 0, transparent 55%);
+}
+
+/* The site footer is a solid GEO navy band in both themes, matching the main
+   site's footer rather than fading into the page. */
+.geo-footer {
+    background: var(--geo-navy-deep);
+    color: var(--ink-on-dark-muted);
+}
+
+.geo-footer a {
+    color: var(--ink-on-dark-muted);
+    transition: color 0.15s ease;
+}
+
+.geo-footer a:hover {
+    color: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -123,4 +302,156 @@ body {
         transition: none;
         transform: none;
     }
+}
+
+/* ---------------------------------------------------------------------------
+   @geoglows/geoglows-auth ships its own stylesheet with hard-coded slate and
+   blue hex values. These overrides re-point the sign-in modal and the header
+   avatar menu at the GEO palette so the auth surfaces match the rest of the
+   site. Kept to colour, radius and type only — no layout changes.
+
+   That stylesheet is a dynamic import, so its <link> is appended after this
+   file's and wins any specificity tie. The doubled :root prefix outranks the
+   package's own light (.x) and dark (:is([data-theme=dark], .dark) .x) rules.
+   The values are theme-aware custom properties, so one rule covers both.
+--------------------------------------------------------------------------- */
+
+:root:root .geoglows-signin-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+}
+
+:root:root .geoglows-signin-modal {
+    color: var(--text-strong);
+    background: var(--surface-card);
+    border-color: var(--border);
+    border-radius: var(--radius-2xl);
+}
+
+:root:root .geoglows-signin-modal::backdrop {
+    background: #111a2699;
+}
+
+:root:root .geoglows-signin-provider-button,
+:root:root .geoglows-signin-input,
+:root:root .geoglows-signin-submit,
+:root:root .geoglows-signin-confirmation-back {
+    border-radius: var(--radius-xl);
+}
+
+:root:root .geoglows-signin-provider-button {
+    border-color: var(--border);
+}
+
+:root:root .geoglows-signin-provider-button:hover:not(:disabled) {
+    background: var(--surface-muted);
+}
+
+:root:root .geoglows-signin-divider:before {
+    border-top-color: var(--border);
+}
+
+:root:root .geoglows-signin-divider-label {
+    color: var(--color-slate-500);
+    background: var(--surface-card);
+}
+
+:root:root .geoglows-signin-label {
+    color: var(--text-body);
+}
+
+:root:root .geoglows-signin-input {
+    color: var(--text-strong);
+    background: var(--surface-card);
+    border-color: var(--border);
+}
+
+:root:root .geoglows-signin-input:focus {
+    outline-color: var(--geo-blue);
+}
+
+:root:root .geoglows-signin-submit,
+:root:root .geoglows-auth-action-signin,
+:root:root .geoglows-auth-action-avatar-summary {
+    background: var(--geo-blue);
+}
+
+:root:root .geoglows-signin-submit:hover:not(:disabled),
+:root:root .geoglows-auth-action-signin:hover {
+    background: var(--color-blue-700);
+}
+
+:root:root .geoglows-auth-action-signin {
+    border-radius: var(--radius-xl);
+}
+
+:root:root .geoglows-signin-toggle-text,
+:root:root .geoglows-auth-action-menu-email {
+    color: var(--color-slate-500);
+}
+
+:root:root .geoglows-signin-toggle-button {
+    color: var(--accent-strong);
+}
+
+:root:root .geoglows-signin-confirmation-text {
+    color: var(--text-body);
+}
+
+:root:root .geoglows-signin-confirmation-back,
+:root:root .geoglows-auth-action-loading {
+    color: var(--text-strong);
+    background: var(--surface-muted);
+}
+
+:root:root .geoglows-signin-confirmation-back:hover {
+    background: var(--border);
+}
+
+:root:root .geoglows-signin-success {
+    color: var(--color-teal-700);
+    background: var(--color-teal-50);
+    border-color: var(--color-teal-200);
+}
+
+:root:root .geoglows-auth-action-menu {
+    background: var(--surface-card);
+    border-color: var(--border);
+    border-radius: var(--radius-2xl);
+}
+
+:root:root .geoglows-auth-action-menu-header,
+:root:root .geoglows-auth-action-menu-divider {
+    border-color: var(--border);
+}
+
+:root:root .geoglows-auth-action-menu-name {
+    color: var(--text-strong);
+}
+
+:root:root .geoglows-auth-action-menu-link {
+    color: var(--text-body);
+}
+
+:root:root .geoglows-auth-action-menu-link:hover {
+    background: var(--surface-muted);
+}
+
+:root:root.dark .geoglows-signin-input {
+    background: var(--color-slate-950);
+}
+
+:root:root.dark .geoglows-signin-close:hover,
+:root:root.dark .geoglows-auth-action-menu-link {
+    color: var(--text-strong);
+}
+
+:root:root.dark .geoglows-signin-confirmation-back:hover {
+    background: var(--color-slate-700);
+}
+
+:root:root.dark .geoglows-signin-success {
+    color: var(--color-teal-300);
+    background: var(--color-teal-950);
+    border-color: var(--color-teal-800);
 }

@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Open Source Licenses | GEOGLOWS</title>
   <meta name="description" content="The open source software the GEOGLOWS applications are built on, and the license each package is distributed under."/>
-  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)"/>
-  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)"/>
+  <meta name="theme-color" content="#fbfdfd" media="(prefers-color-scheme: light)"/>
+  <meta name="theme-color" content="#111a26" media="(prefers-color-scheme: dark)"/>
 
   <link rel="icon" type="image/png" href="/favicon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/src/style.css"/>
 
   <script>
@@ -27,14 +27,14 @@
 <body>
 <div class="min-h-screen text-slate-800 dark:text-slate-200 water-mesh flex flex-col">
 
-  <nav class="w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-white/5 py-4">
-    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
-      <a href="/" class="flex h-12 items-center overflow-hidden hover:opacity-80 transition-opacity">
+  <nav class="sticky top-0 w-full z-50 bg-slate-50/85 dark:bg-slate-950/85 backdrop-blur-xl border-b border-slate-200 dark:border-white/5 py-3">
+    <div class="max-w-[88rem] mx-auto px-6 flex items-center justify-between">
+      <a href="/" class="flex h-10 items-center overflow-hidden hover:opacity-80 transition-opacity">
         <img src="/geoglows-logo.png" alt="GEOGLOWS" class="w-44 dark:hidden"/>
         <img src="/geoglows-logo-white.png" alt="GEOGLOWS" class="w-44 hidden dark:block"/>
       </a>
       <button id="theme-toggle" aria-label="Toggle theme"
-              class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+              class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
         <span data-icon="heroicon:moon" data-icon-size="20" class="dark:hidden"></span>
         <span data-icon="heroicon:sun" data-icon-size="20" class="hidden dark:block"></span>
       </button>
@@ -56,8 +56,8 @@
       <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-500 mb-3">Esri copyright notice</h2>
       <div class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-3">
         <p>
-          <a href="https://unpkg.com/@arcgis/core/LICENSE.md" target="_blank" rel="noopener" class="font-mono text-blue-600 dark:text-blue-400 hover:underline">@arcgis/core</a>, <a href="https://unpkg.com/@arcgis/map-components/LICENSE.md" target="_blank" rel="noopener" class="font-mono text-blue-600 dark:text-blue-400 hover:underline">@arcgis/map-components</a>, <a href="https://unpkg.com/@esri/calcite-components/LICENSE.md" target="_blank" rel="noopener" class="font-mono text-blue-600 dark:text-blue-400 hover:underline">@esri/calcite-components</a>, <a href="https://unpkg.com/@esri/calcite-ui-icons/LICENSE.md" target="_blank" rel="noopener" class="font-mono text-blue-600 dark:text-blue-400 hover:underline">@esri/calcite-ui-icons</a> are not open source. They are licensed for use under the
-          <a href="https://www.esri.com/content/dam/esrisites/en-us/media/legal/ma-full/ma-full.pdf" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold" target="_blank" rel="noopener">Esri Master License Agreement</a>,
+          <a href="https://unpkg.com/@arcgis/core/LICENSE.md" target="_blank" rel="noopener" class="font-mono text-blue-600 dark:text-sky-400 hover:underline">@arcgis/core</a>, <a href="https://unpkg.com/@arcgis/map-components/LICENSE.md" target="_blank" rel="noopener" class="font-mono text-blue-600 dark:text-sky-400 hover:underline">@arcgis/map-components</a>, <a href="https://unpkg.com/@esri/calcite-components/LICENSE.md" target="_blank" rel="noopener" class="font-mono text-blue-600 dark:text-sky-400 hover:underline">@esri/calcite-components</a>, <a href="https://unpkg.com/@esri/calcite-ui-icons/LICENSE.md" target="_blank" rel="noopener" class="font-mono text-blue-600 dark:text-sky-400 hover:underline">@esri/calcite-ui-icons</a> are not open source. They are licensed for use under the
+          <a href="https://www.esri.com/content/dam/esrisites/en-us/media/legal/ma-full/ma-full.pdf" class="text-blue-600 dark:text-sky-400 hover:underline font-semibold" target="_blank" rel="noopener">Esri Master License Agreement</a>,
           which permits redistribution without modification provided the terms of that agreement are
           followed and Esri's copyright notice is included. We redistribute them unmodified.
         </p>
@@ -94,7 +94,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v2</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -107,7 +106,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v2</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -120,7 +118,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v2</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -130,10 +127,9 @@
             <td class="py-3 pr-4 font-mono text-sm text-slate-800 dark:text-slate-200 align-top">@esri/calcite-ui-icons</td>
             <td class="py-3 pr-6 align-top whitespace-nowrap"><a href="https://unpkg.com/@esri/calcite-ui-icons/LICENSE.md" target="_blank" rel="noopener" title="Read the license for @esri/calcite-ui-icons (opens in a new tab)" class="inline-block transition-colors text-xs font-medium px-2.5 py-0.5 rounded-full border whitespace-nowrap bg-amber-100 dark:bg-amber-500/10 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-500/20 hover:bg-amber-200 dark:hover:bg-amber-500/20">Esri Master License Agreement</a></td>
             <td class="py-3 text-xs align-top"><ul class="list-disc list-inside space-y-0.5 marker:text-slate-300 dark:marker:text-slate-700">
-              <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
+              <li class="text-slate-600 dark:text-slate-400">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -146,7 +142,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -159,7 +154,6 @@
               <li class="text-slate-600 dark:text-slate-400">GEOGLOWS Apps Portal</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v2</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -172,7 +166,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-600 dark:text-slate-400">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -185,7 +178,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-600 dark:text-slate-400">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -198,7 +190,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -211,7 +202,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -224,7 +214,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-600 dark:text-slate-400">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -237,7 +226,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-600 dark:text-slate-400">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -250,7 +238,6 @@
               <li class="text-slate-600 dark:text-slate-400">GEOGLOWS Apps Portal</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-600 dark:text-slate-400">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -262,8 +249,7 @@
             <td class="py-3 text-xs align-top"><ul class="list-disc list-inside space-y-0.5 marker:text-slate-300 dark:marker:text-slate-700">
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-600 dark:text-slate-400">RFS Hydrography Explorer</li>
+              <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -275,8 +261,7 @@
             <td class="py-3 text-xs align-top"><ul class="list-disc list-inside space-y-0.5 marker:text-slate-300 dark:marker:text-slate-700">
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-600 dark:text-slate-400">RFS Hydrography Explorer</li>
+              <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -288,8 +273,7 @@
             <td class="py-3 text-xs align-top"><ul class="list-disc list-inside space-y-0.5 marker:text-slate-300 dark:marker:text-slate-700">
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-600 dark:text-slate-400">RFS Hydrography Explorer</li>
+              <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -302,7 +286,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-600 dark:text-slate-400">RFS Hydrography Explorer</li>
               <li class="text-slate-600 dark:text-slate-400">Flood Early Warnings for All</li>
               <li class="text-slate-600 dark:text-slate-400">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -315,7 +298,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -328,7 +310,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v2</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -341,7 +322,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-600 dark:text-slate-400">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-600 dark:text-slate-400">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -354,7 +334,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-600 dark:text-slate-400">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">GRACE Groundwater Anomalies</li>
@@ -367,7 +346,6 @@
               <li class="text-slate-300 dark:text-slate-700 line-through">GEOGLOWS Apps Portal</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v2</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">Flood Early Warnings for All</li>
               <li class="text-slate-600 dark:text-slate-400">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -380,7 +358,6 @@
               <li class="text-slate-600 dark:text-slate-400">GEOGLOWS Apps Portal</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v2</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-600 dark:text-slate-400">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -393,7 +370,6 @@
               <li class="text-slate-600 dark:text-slate-400">GEOGLOWS Apps Portal</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v2</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">River Forecast System v3</li>
-              <li class="text-slate-300 dark:text-slate-700 line-through">RFS Hydrography Explorer</li>
               <li class="text-slate-600 dark:text-slate-400">Flood Early Warnings for All</li>
               <li class="text-slate-300 dark:text-slate-700 line-through">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -406,7 +382,6 @@
               <li class="text-slate-600 dark:text-slate-400">GEOGLOWS Apps Portal</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v2</li>
               <li class="text-slate-600 dark:text-slate-400">River Forecast System v3</li>
-              <li class="text-slate-600 dark:text-slate-400">RFS Hydrography Explorer</li>
               <li class="text-slate-600 dark:text-slate-400">Flood Early Warnings for All</li>
               <li class="text-slate-600 dark:text-slate-400">HydroSOS Water Status Monitor</li>
               <li class="text-slate-600 dark:text-slate-400">GRACE Groundwater Anomalies</li>
@@ -418,17 +393,14 @@
     </section>
   </main>
 
-  <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-16 px-4 bg-white/50 dark:bg-transparent">
-    <div class="max-w-6xl mx-auto text-center">
-      <div class="border-slate-200 dark:border-slate-900 text-slate-500 dark:text-slate-300 text-xs">
-        <p>
-          &copy; 2026 GEOGLOWS
-          <span aria-hidden="true" class="mx-2">&middot;</span>
-          <a href="/terms" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Terms &amp; Conditions</a>
-          <span aria-hidden="true" class="mx-2">&middot;</span>
-          <a href="/licenses" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Open Source Licenses</a>
-        </p>
-      </div>
+  <footer class="geo-footer mt-20 py-10 px-6">
+    <div class="max-w-[88rem] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-base">
+      <span>&copy; 2026 GEOGLOWS &middot; A Group on Earth Observations initiative.</span>
+      <span class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a href="https://geoglows.org">geoglows.org</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/licenses">Open Source Licenses</a>
+      </span>
     </div>
   </footer>
 

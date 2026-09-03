@@ -6,13 +6,13 @@
   <title>GEOGLOWS Apps - Profile</title>
   <meta name="description" content="Manage your GEOGLOWS account details."/>
   <meta name="robots" content="noindex"/>
-  <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)"/>
-  <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)"/>
+  <meta name="theme-color" content="#fbfdfd" media="(prefers-color-scheme: light)"/>
+  <meta name="theme-color" content="#111a26" media="(prefers-color-scheme: dark)"/>
 
   <link rel="icon" type="image/png" href="/favicon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="/src/style.css"/>
 
   <script>
@@ -33,10 +33,10 @@
 <body>
 <div class="min-h-screen text-slate-800 dark:text-slate-200 water-mesh flex flex-col">
 
-  <nav class="w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-white/5 py-4">
-    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+  <nav class="sticky top-0 w-full z-50 bg-slate-50/85 dark:bg-slate-950/85 backdrop-blur-xl border-b border-slate-200 dark:border-white/5 py-3">
+    <div class="max-w-[88rem] mx-auto px-6 flex items-center justify-between">
       <!-- Fixed-height clipped box: see the note in index.html. -->
-      <a href="/" class="flex h-12 items-center overflow-hidden hover:opacity-80 transition-opacity">
+      <a href="/" class="flex h-10 items-center overflow-hidden hover:opacity-80 transition-opacity">
         <img src="/geoglows-logo.png" alt="GEOGLOWS" class="w-44 dark:hidden"/>
         <img src="/geoglows-logo-white.png" alt="GEOGLOWS" class="w-44 hidden dark:block"/>
       </a>
@@ -44,7 +44,7 @@
         <!-- Filled by src/auth.js once the session resolves. -->
         <div id="authActionSlot"></div>
         <button id="theme-toggle" aria-label="Toggle theme"
-                class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
           <span data-icon="heroicon:moon" data-icon-size="20" class="dark:hidden"></span>
           <span data-icon="heroicon:sun" data-icon-size="20" class="hidden dark:block"></span>
         </button>
@@ -52,7 +52,7 @@
     </div>
   </nav>
 
-  <main class="max-w-7xl mx-auto px-6 py-10 grow w-full">
+  <main class="max-w-[88rem] mx-auto px-6 py-10 grow w-full">
     <div class="mb-5">
       <h1 class="font-bold text-3xl text-slate-800 dark:text-white">Your Profile</h1>
       <p class="mt-2 text-slate-600 dark:text-slate-400 max-w-2xl">
@@ -84,8 +84,8 @@
 
     <!-- Anonymous -->
     <div id="profileSignedOut" hidden class="flex flex-col items-center justify-center py-24 text-center gap-6">
-      <div class="w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-500/10 flex items-center justify-center">
-        <span data-icon="heroicon:user-circle" data-icon-size="32" class="w-8 h-8 text-blue-500"></span>
+      <div class="w-16 h-16 rounded-2xl bg-blue-50 dark:bg-blue-500/15 flex items-center justify-center">
+        <span data-icon="heroicon:user-circle" data-icon-size="32" class="w-8 h-8 text-blue-600"></span>
       </div>
       <div>
         <h2 class="font-bold text-2xl text-slate-800 dark:text-white mb-2">Sign in to view your profile</h2>
@@ -94,7 +94,7 @@
         </p>
       </div>
       <button type="button" id="profileSignIn"
-              class="px-6 py-3 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+              class="px-6 py-3 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2">
         Sign in
       </button>
     </div>
@@ -110,7 +110,7 @@
           </div>
         </div>
         <button type="button" id="profileEdit"
-                class="self-start px-4 py-2 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                class="self-start px-4 py-2 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2">
           Edit profile
         </button>
       </div>
@@ -136,7 +136,7 @@
           <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Personal link</p>
           <p class="mt-1 text-sm">
             <a id="viewUserLink" hidden target="_blank" rel="noopener noreferrer"
-               class="text-blue-600 dark:text-blue-400 hover:underline break-all"></a>
+               class="text-blue-600 dark:text-sky-400 hover:underline break-all"></a>
             <span id="viewUserLinkEmpty" class="italic text-slate-400 dark:text-slate-500">&mdash;</span>
           </p>
         </div>
@@ -198,11 +198,11 @@
 
       <div class="flex justify-end gap-2 pt-2">
         <button type="button" id="profileCancel"
-                class="px-4 py-2 min-h-[44px] rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 font-semibold transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                class="px-4 py-2 min-h-[44px] rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-200 font-semibold transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600">
           Cancel
         </button>
         <button type="submit" id="profileSubmit"
-                class="px-4 py-2 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                class="px-4 py-2 min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white font-semibold shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2">
           Save changes
         </button>
       </div>
@@ -213,17 +213,14 @@
     </noscript>
   </main>
 
-  <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-16 px-4 bg-white/50 dark:bg-transparent">
-    <div class="max-w-6xl mx-auto text-center">
-      <div class="border-slate-200 dark:border-slate-900 text-slate-500 dark:text-slate-300 text-xs">
-        <p>
-          &copy; 2026 GEOGLOWS
-          <span aria-hidden="true" class="mx-2">&middot;</span>
-          <a href="/terms" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Terms &amp; Conditions</a>
-          <span aria-hidden="true" class="mx-2">&middot;</span>
-          <a href="/licenses" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Open Source Licenses</a>
-        </p>
-      </div>
+  <footer class="geo-footer mt-20 py-10 px-6">
+    <div class="max-w-[88rem] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-base">
+      <span>&copy; 2026 GEOGLOWS &middot; A Group on Earth Observations initiative.</span>
+      <span class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a href="https://geoglows.org">geoglows.org</a>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/licenses">Open Source Licenses</a>
+      </span>
     </div>
   </footer>
 
