@@ -40,8 +40,8 @@ const ACCENTS = {
 
 const FALLBACK_ACCENT = "blue";
 
-// Each app deploys itself to its own path at the site root, so an app's
-// apps.json path (/rfs-v3) is already its URL. The distribution resolves that
+// Each app deploys itself to the path it declares, so an app's apps.json path
+// (/rfs, /previews/rfs-v3) is already its URL. The distribution resolves that
 // directory URL to the app's index.
 const appHref = (path) => `/${String(path ?? "").replace(/^\/+/, "")}`;
 
@@ -83,7 +83,12 @@ function groupSection(group) {
     </section>`;
 }
 
+// A group belongs to the page named by its "page" field; the home page is the
+// default, so only groups moved onto a secondary page (the previews) say so.
+const groupsFor = (page) =>
+  (config.groups ?? []).filter((group) => (group.page ?? "home") === page);
+
 export function renderAppLibrary(mount = document.getElementById("appLibrary")) {
   if (!mount) return; // no-op on pages without the grid (profile / terms)
-  mount.innerHTML = (config.groups ?? []).map(groupSection).join("");
+  mount.innerHTML = groupsFor(mount.dataset.page || "home").map(groupSection).join("");
 }

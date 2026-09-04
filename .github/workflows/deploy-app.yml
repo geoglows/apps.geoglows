@@ -2,6 +2,8 @@ name: Deploy portal app
 
 # To be used by all apps that deploy to apps.geoglows including the landing page.
 # apps specify an app_path which is the location in s3 and to invalidate in cloudfront.
+# App repos pass it from their own APP_PATH variable, so an app moves by editing
+# that setting rather than this workflow or the copy in the app repo.
 
 on:
   workflow_call:
@@ -32,6 +34,11 @@ jobs:
       group: deploy-${{ inputs.app_path }}
       cancel-in-progress: true
     steps:
+      - if: inputs.app_path == ''
+        run: |
+          echo "::error::app_path is empty. Set the APP_PATH variable on this repository to the app's path in apps.json, e.g. /rfs or /previews/rfs"
+          exit 1
+
       - uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref }}

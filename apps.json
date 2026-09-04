@@ -55,7 +55,8 @@
     },
     {
       "id": "previews",
-      "heading": "Public Previews",
+      "page": "previews",
+      "heading": "",
       "apps": [
         {
           "name": "River Forecast System v3 (Preview)",
@@ -68,7 +69,7 @@
           ],
           "icon": "heroicon:globe-europe-africa",
           "accent": "blue",
-          "path": "/rfs-v3",
+          "path": "/previews/rfs-v3",
           "repository": "geoglows/webapp-rfs-v3"
         },
         {
@@ -82,7 +83,7 @@
           ],
           "icon": "heroicon:bell-alert",
           "accent": "amber",
-          "path": "/fews4all",
+          "path": "/previews/fews4all",
           "repository": "geoglows/webapp-fews4all"
         }
       ]

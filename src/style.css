@@ -183,7 +183,7 @@
     --accent-text: var(--color-teal-700);
     --accent-strong: var(--color-blue-600);
     --ink-on-dark: #eaf2f7;
-    --ink-on-dark-muted: #a6bccb;
+    --ink-on-dark-muted: #dbe6ee;
     --hairline-on-dark: #e9f0f626;
 }
 
@@ -192,11 +192,19 @@
     --surface-card: var(--color-slate-900);
     --surface-muted: #1c2837;
     --border: #26343d;
-    --text-strong: #e8eef3;
-    --text-body: #aabac2;
+    --text-strong: #f6f9fb;
+    --text-body: #d3dfe7;
     --accent: #4fb3a4;
     --accent-text: #6fd0c0;
     --accent-strong: var(--color-sky-400);
+
+    /* The light steps of the slate scale carry only text in dark mode — the
+       dark surfaces and borders come from steps 700-950 — so they are lifted
+       toward white here for readable contrast on the near-black page. */
+    --color-slate-200: #f6f9fb;
+    --color-slate-300: #e4ecf1;
+    --color-slate-400: #c6d4dd;
+    --color-slate-500: #a8b9c4;
 }
 
 html {

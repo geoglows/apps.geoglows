@@ -31,6 +31,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: entry('./index.html'),
+        previews: entry('./previews/index.html'),
         profile: entry('./profile/index.html'),
         terms: entry('./terms/index.html'),
         licenses: entry('./licenses/index.html')

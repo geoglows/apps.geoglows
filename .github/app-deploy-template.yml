@@ -1,7 +1,14 @@
-# Copy to .github/workflows/deploy.yml in an app repo and change app_path.
-# That is the only edit. Not in workflows/ here, so it never runs in this repo.
+# Copy to .github/workflows/deploy.yml in an app repo. No edit needed: the path
+# comes from the repo's own APP_PATH variable, so moving an app is a settings
+# change rather than a commit. Not in workflows/ here, so it never runs here.
 #
-# Set once at the organisation level, so an app repo configures nothing:
+# Set on the app repository (Settings > Secrets and variables > Actions >
+# Variables). It must match the app's path in apps.json, and must be per-repo —
+# an organization-level APP_PATH would point every app at the same place:
+#
+#   variables  APP_PATH, e.g. /rfs or /previews/rfs
+#
+# Set once at the organization level, so an app repo configures nothing else:
 #
 #   variables  S3_BUCKET_NAME, CLOUDFRONT_DISTRIBUTION_ID
 #   secrets    AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
@@ -22,9 +29,15 @@
 
 name: Deploy
 
+# Builds this app and publishes it to apps.geoglows
+# Needs variables S3_BUCKET_NAME, CLOUDFRONT_DISTRIBUTION_ID, APP_PATH
+# Needs secrets AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
   workflow_dispatch:
     inputs:
       ref:
@@ -39,6 +52,6 @@ jobs:
   deploy:
     uses: geoglows/apps.geoglows/.github/workflows/deploy-app.yml@main
     with:
-      app_path: /rfs-v3
+      app_path: ${{ vars.APP_PATH }}
       ref: ${{ inputs.ref }}
     secrets: inherit

@@ -2,7 +2,7 @@
 
 # Build this app and publish it to its own path in the portal.
 # Every app and the landing page use this same script; only APP_PATH differs.
-# APP_PATH=/rfs-v3 ./scripts/deploy-app.sh
+# APP_PATH=/previews/rfs-v3 ./scripts/deploy-app.sh
 
 # This script needs the following environment variables:
 # AWS_ACCESS_KEY_ID
@@ -13,12 +13,12 @@
 set -euo pipefail
 
 # ensure variables are set or give an error message
-: "${APP_PATH:?set APP_PATH, e.g. /rfs-v3 (or / for the landing page)}"
+: "${APP_PATH:?set APP_PATH, e.g. /<app-slug> (or / for the landing page)}"
 : "${S3_BUCKET_NAME:?set S3_BUCKET_NAME, e.g. apps-geoglows}"
 : "${CLOUDFRONT_DISTRIBUTION_ID:?set CLOUDFRONT_DISTRIBUTION_ID}"
 export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-1}"
 
-base="/${APP_PATH#/}"; base="${base%/}/"     # /rfs-v3/, or /
+base="/${APP_PATH#/}"; base="${base%/}/"     # /<app-slug>, or /previews/<app-slug>/, or / for the landing page
 dest="s3://${S3_BUCKET_NAME}${base}"
 
 echo "==> building $base"
@@ -55,6 +55,7 @@ if [ "$base" = "/" ]; then
     [ -d "$d" ] || continue                  # no match: the glob stayed literal
     sweep+=(--include "$(basename "$d")/*")
   done
+  sweep+=(--exclude "*/*/*")
 fi
 
 echo "==> sweeping $dest"
