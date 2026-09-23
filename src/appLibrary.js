@@ -4,6 +4,7 @@ import {calcite, heroicon, iconSvg, register} from "./icons.js";
 import arrowUpRight from "heroicons/24/outline/arrow-up-right.svg?raw";
 import bellAlert from "heroicons/24/outline/bell-alert.svg?raw";
 import chartBarSquare from "heroicons/24/outline/chart-bar-square.svg?raw";
+import circleStack from "heroicons/24/outline/circle-stack.svg?raw";
 import globeEuropeAfrica from "heroicons/24/outline/globe-europe-africa.svg?raw";
 import map from "heroicons/24/outline/map.svg?raw";
 import square3Stack3d from "heroicons/24/outline/square-3-stack-3d.svg?raw";
@@ -17,6 +18,7 @@ register({
   "heroicon:arrow-up-right": heroicon(arrowUpRight),
   "heroicon:bell-alert": heroicon(bellAlert),
   "heroicon:chart-bar-square": heroicon(chartBarSquare),
+  "heroicon:circle-stack": heroicon(circleStack),
   "heroicon:globe-europe-africa": heroicon(globeEuropeAfrica),
   "heroicon:map": heroicon(map),
   "heroicon:square-3-stack-3d": heroicon(square3Stack3d),

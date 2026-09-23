@@ -73,6 +73,20 @@
           "repository": "geoglows/webapp-rfs-v3"
         },
         {
+          "name": "RFS Data Store (Preview)",
+          "description": "Browse the River Forecast System data catalog, cut an area of interest out of the global river network, and download the subset as Zarr or GeoParquet.",
+          "tags": [
+            "RFS",
+            "Data Access",
+            "Zarr",
+            "GeoParquet"
+          ],
+          "icon": "heroicon:circle-stack",
+          "accent": "violet",
+          "path": "/rfs-data-store",
+          "repository": "geoglows/data-store-app"
+        },
+        {
           "name": "Flood Early Warnings for All (Preview)",
           "description": "Compare early warning systems for floods worldwide with data from national, regional, and global hydrology models.",
           "tags": [
