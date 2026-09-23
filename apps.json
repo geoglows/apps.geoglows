@@ -83,7 +83,7 @@
           ],
           "icon": "heroicon:circle-stack",
           "accent": "violet",
-          "path": "/rfs-data-store",
+          "path": "/previews/rfs-data-store",
           "repository": "geoglows/data-store-app"
         },
         {
