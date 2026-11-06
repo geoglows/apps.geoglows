@@ -18,5 +18,8 @@
     "@esri/calcite-ui-icons": "^4.6.0",
     "@geoglows/geoglows-auth": "github:geoglows/geoglows-auth#v1.8.0",
     "heroicons": "^2.2.0"
+  },
+  "allowScripts": {
+    "github:geoglows/geoglows-auth": true
   }
 }
