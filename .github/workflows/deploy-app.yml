@@ -55,7 +55,11 @@ jobs:
           node-version: latest
           cache: npm
 
+      # npm 12 refuses git dependencies by default. Apps depend on geoglows-auth
+      # from GitHub, so allow git deps declared directly in package.json.
       - run: npm ci
+        env:
+          npm_config_allow_git: root
 
       # The AWS CLI is preinstalled on the runner and reads these directly, so
       # no credential action is involved. Region is set in the script.
