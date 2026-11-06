@@ -67,7 +67,7 @@
             "Forecasting",
             "Flood Inundation Maps (FIM)"
           ],
-          "icon": "heroicon:globe-europe-africa",
+          "icon": "calcite:heavy-rain",
           "accent": "blue",
           "path": "/previews/rfs-v3",
           "repository": "geoglows/webapp-rfs-v3"
@@ -81,10 +81,24 @@
             "Zarr",
             "GeoParquet"
           ],
-          "icon": "heroicon:circle-stack",
+          "icon": "heroicon:cloud-arrow-down",
           "accent": "violet",
           "path": "/previews/rfs-data-store",
           "repository": "geoglows/data-store-app"
+        },
+        {
+          "name": "Aquifer Analyst (Preview)",
+          "description": "Explore groundwater levels and water quality by region and aquifer, fill gaps in well records, and map the water table over time.",
+          "tags": [
+            "Groundwater",
+            "Water Levels",
+            "Water Quality",
+            "Wells"
+          ],
+          "icon": "calcite:layer-3d",
+          "accent": "cyan",
+          "path": "/previews/aquiferx",
+          "repository": "geoglows/aquiferx"
         },
         {
           "name": "Flood Early Warnings for All (Preview)",

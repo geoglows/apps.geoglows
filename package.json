@@ -10,12 +10,12 @@
     "build:site": "bash scripts/build-local.sh"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.1.18",
-    "tailwindcss": "^4.1.18",
-    "vite": "^8.2.2"
+    "@tailwindcss/vite": "^4.2.4",
+    "tailwindcss": "^4.2.4",
+    "vite": "^8.3.6"
   },
   "dependencies": {
-    "@esri/calcite-ui-icons": "^4.5.0",
+    "@esri/calcite-ui-icons": "^4.6.0",
     "@geoglows/geoglows-auth": "github:geoglows/geoglows-auth#v1.8.0",
     "heroicons": "^2.2.0"
   }
